@@ -57,7 +57,7 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
         final ExpressionNumber number = context.expressionNumberKind().create(123);
 
         this.convertAndCheck(
-                JsonConverters.stringToJsonNode().to(
+                JsonNodeConverters.stringToJsonNode().to(
                         JsonNode.class,
                         converter
                 ),
