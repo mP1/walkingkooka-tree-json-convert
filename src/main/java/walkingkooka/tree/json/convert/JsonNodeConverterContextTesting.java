@@ -18,10 +18,11 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.convert.ConverterContextTesting;
+import walkingkooka.tree.expression.ExpressionNumberConverterContextTesting;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextTesting;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextTesting;
 
-public interface JsonNodeConverterContextTesting<C extends JsonNodeConverterContext> extends ConverterContextTesting<C>,
+public interface JsonNodeConverterContextTesting<C extends JsonNodeConverterContext> extends ExpressionNumberConverterContextTesting<C>,
         JsonNodeMarshallContextTesting<C>,
         JsonNodeUnmarshallContextTesting<C> {
 

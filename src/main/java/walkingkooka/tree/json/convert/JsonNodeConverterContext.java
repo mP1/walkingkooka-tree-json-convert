@@ -18,11 +18,12 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 
 /**
  * A {@link ConverterContext} that adds additional methods to support marshalling/unmarshaling {@link walkingkooka.tree.json.JsonNode}.
  */
-public interface JsonNodeConverterContext extends ConverterContext, JsonNodeMarshallContext, JsonNodeUnmarshallContext {
+public interface JsonNodeConverterContext extends ExpressionNumberConverterContext, JsonNodeMarshallContext, JsonNodeUnmarshallContext {
 }
