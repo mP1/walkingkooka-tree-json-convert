@@ -22,10 +22,10 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
-public final class JsonConvertersTest implements PublicStaticHelperTesting<JsonConverters> {
+public final class JsonNodeConvertersTest implements PublicStaticHelperTesting<JsonNodeConverters> {
     @Override
-    public Class<JsonConverters> type() {
-        return JsonConverters.class;
+    public Class<JsonNodeConverters> type() {
+        return JsonNodeConverters.class;
     }
 
     @Override

@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.json.convert;
 
-import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -25,7 +24,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 /**
  * A collection of {@link walkingkooka.convert.Converter} for walkingkooka.tree.json
  */
-public final class JsonConverters implements PublicStaticHelper {
+public final class JsonNodeConverters implements PublicStaticHelper {
 
     /**
      * {@see JsonNodeToUnmarshallingConverter}
@@ -44,7 +43,7 @@ public final class JsonConverters implements PublicStaticHelper {
     /**
      * Stop creation
      */
-    private JsonConverters() {
+    private JsonNodeConverters() {
         throw new UnsupportedOperationException();
     }
 }
