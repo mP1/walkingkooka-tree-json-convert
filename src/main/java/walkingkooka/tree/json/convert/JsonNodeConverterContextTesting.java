@@ -27,5 +27,7 @@ public interface JsonNodeConverterContextTesting<C extends JsonNodeConverterCont
         JsonNodeUnmarshallContextTesting<C> {
 
     // necessary because the 3 Testing interface have different default impls
-    String typeNameSuffix();
+    default String typeNameSuffix() {
+        return JsonNodeConverterContext.class.getSimpleName();
+    }
 }
