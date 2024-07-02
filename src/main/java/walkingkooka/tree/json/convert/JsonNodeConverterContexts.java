@@ -17,12 +17,31 @@
 
 package walkingkooka.tree.json.convert;
 
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+
+import java.util.Objects;
 
 /**
  * A collection of {@link JsonNodeConverterContext}
  */
 public final class JsonNodeConverterContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicJsonNodeConverterContext}
+     */
+    public static JsonNodeConverterContext basic(final ExpressionNumberConverterContext converterContext,
+                                                 final JsonNodeMarshallContext marshallContext,
+                                                 final JsonNodeUnmarshallContext unmarshallContext) {
+        return BasicJsonNodeConverterContext.with(
+                converterContext,
+                marshallContext,
+                unmarshallContext
+        );
+    }
 
     /**
      * {@see FakeJsonNodeConverterContext}
