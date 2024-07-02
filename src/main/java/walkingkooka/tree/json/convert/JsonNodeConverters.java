@@ -41,6 +41,13 @@ public final class JsonNodeConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see ToJsonNodeMarshallingConverter}
+     */
+    public static <C extends JsonNodeConverterContext> Converter<C> toJsonNode() {
+        return ToJsonNodeMarshallingConverter.instance();
+    }
+
+    /**
      * Stop creation
      */
     private JsonNodeConverters() {

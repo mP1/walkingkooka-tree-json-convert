@@ -65,6 +65,13 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
 
                 converter = JsonNodeConverters.stringToJsonNode();
                 break;
+            case TO_JSON_NODE_STRING:
+                if (0 != count) {
+                    throw new IllegalArgumentException("Expected 0 value(s) got " + count + " " + values);
+                }
+
+                converter = JsonNodeConverters.toJsonNode();
+                break;
             default:
                 converter = null;
                 break;
@@ -83,6 +90,10 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
 
     final static ConverterName STRING_TO_JSON_NODE = ConverterName.with(STRING_TO_JSON_NODE_STRING);
 
+    final static String TO_JSON_NODE_STRING = "to-json-node";
+
+    final static ConverterName TO_JSON_NODE = ConverterName.with(TO_JSON_NODE_STRING);
+
     @Override
     public Set<ConverterInfo> converterInfos() {
         return INFOS;
@@ -90,7 +101,8 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
 
     private final static Set<ConverterInfo> INFOS = Sets.of(
             nameToConverterInfo(JSON_NODE_TO),
-            nameToConverterInfo(STRING_TO_JSON_NODE)
+            nameToConverterInfo(STRING_TO_JSON_NODE),
+            nameToConverterInfo(TO_JSON_NODE)
     );
 
     private static ConverterInfo nameToConverterInfo(final ConverterName name) {
