@@ -25,6 +25,13 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class JsonNodeConverterContexts implements PublicStaticHelper {
 
     /**
+     * {@see FakeJsonNodeConverterContext}
+     */
+    public static JsonNodeConverterContext fake() {
+        return new FakeJsonNodeConverterContext();
+    }
+
+    /**
      * Stop creation
      */
     private JsonNodeConverterContexts() {
