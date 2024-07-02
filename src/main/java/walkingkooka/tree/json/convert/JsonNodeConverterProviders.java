@@ -36,6 +36,13 @@ public final class JsonNodeConverterProviders implements PublicStaticHelper {
             "https://github.com/mP1/walkingkooka-tree-json-convert/" + Converter.class.getSimpleName()
     );
 
+    /**
+     * {@see JsonNodeConvertersConverterProvider}
+     */
+    public static ConverterProvider jsonNodeConverters() {
+        return JsonNodeConvertersConverterProvider.INSTANCE;
+    }
+
     private JsonNodeConverterProviders() {
         throw new UnsupportedOperationException();
     }
