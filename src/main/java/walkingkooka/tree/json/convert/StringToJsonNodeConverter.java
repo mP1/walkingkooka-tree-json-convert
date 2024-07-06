@@ -25,7 +25,8 @@ import walkingkooka.net.Url;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * A {@link Converter} that supports converting a {@link String} to one of the {@link JsonNode} sub-classes.
+ * A {@link Converter} that supports converting a {@link String} to one of the {@link JsonNode} sub-classes, using {@link JsonNode#parse(String)}.
+ * If parsing fails an {@link IllegalArgumentException} will be thrown.
  */
 final class StringToJsonNodeConverter<C extends ConverterContext> implements Converter<C> {
 
