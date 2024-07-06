@@ -36,7 +36,7 @@ public final class JsonNodeConverters implements PublicStaticHelper {
     /**
      * {@see StringToJsonNodeConverter}
      */
-    public static <C extends ConverterContext> Converter<C> stringToJsonNode() {
+    public static <C extends JsonNodeConverterContext> Converter<C> stringToJsonNode() {
         return StringToJsonNodeConverter.instance();
     }
 

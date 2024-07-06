@@ -24,16 +24,18 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.net.Url;
 import walkingkooka.tree.json.JsonNode;
 
+import javax.swing.text.html.HTMLDocument.RunElement;
+
 /**
  * A {@link Converter} that supports converting a {@link String} to one of the {@link JsonNode} sub-classes, using {@link JsonNode#parse(String)}.
  * If parsing fails an {@link IllegalArgumentException} will be thrown.
  */
-final class StringToJsonNodeConverter<C extends ConverterContext> implements Converter<C> {
+final class StringToJsonNodeConverter<C extends JsonNodeConverterContext> implements Converter<C> {
 
     /**
      * Type safe getter.
      */
-    static <C extends ConverterContext> StringToJsonNodeConverter<C> instance() {
+    static <C extends JsonNodeConverterContext> StringToJsonNodeConverter<C> instance() {
         return Cast.to(INSTANCE);
     }
 
@@ -62,18 +64,39 @@ final class StringToJsonNodeConverter<C extends ConverterContext> implements Con
                 type,
                 context
         ) ?
-                this.successfulConversion(
-                        JsonNode.parse(
-                                (String) value
-                        ).cast(
-                                Cast.to(type)
-                        ),
+                this.parseJson(
+                        (String)value,
                         type
                 ) :
                 this.failConversion(
                         value,
                         type
                 );
+    }
+
+    /**
+     * Tries to parse the {@link String} as JSON, catching any parsing exceptions and turning them into failures.
+     */
+    private <T> Either<T, String> parseJson(final String value,
+                                            final Class<T> type) {
+        Either<T, String> result;
+
+        try {
+            result = this.successfulConversion(
+                    JsonNode.parse(value)
+                            .cast(
+                                    Cast.to(type)
+                            ),
+                    type
+            );
+        } catch (final RuntimeException cause) {
+            result = this.failConversion(
+                    value,
+                    type
+            );
+        }
+
+        return result;
     }
 
     @Override
