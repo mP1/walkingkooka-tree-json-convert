@@ -29,8 +29,16 @@ import walkingkooka.tree.json.JsonString;
 
 import java.util.function.Function;
 
-public final class StringToJsonNodeConverterTest implements ConverterTesting2<StringToJsonNodeConverter<FakeConverterContext>, FakeConverterContext>,
-        ToStringTesting<StringToJsonNodeConverter<FakeConverterContext>> {
+public final class StringToJsonNodeConverterTest implements ConverterTesting2<StringToJsonNodeConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
+        ToStringTesting<StringToJsonNodeConverter<FakeJsonNodeConverterContext>> {
+
+    @Test
+    public void testConvertStringToJsonNodeWithBadJsonFails() {
+        this.convertFails(
+                "bad json",
+                JsonNode.class
+        );
+    }
 
     @Test
     public void testConvertStringToJsonNode() {
@@ -107,13 +115,13 @@ public final class StringToJsonNodeConverterTest implements ConverterTesting2<St
     }
 
     @Override
-    public StringToJsonNodeConverter<FakeConverterContext> createConverter() {
+    public StringToJsonNodeConverter<FakeJsonNodeConverterContext> createConverter() {
         return StringToJsonNodeConverter.instance();
     }
 
     @Override
-    public FakeConverterContext createContext() {
-        return new FakeConverterContext();
+    public FakeJsonNodeConverterContext createContext() {
+        return new FakeJsonNodeConverterContext();
     }
 
     // toString.........................................................................................................
@@ -129,7 +137,7 @@ public final class StringToJsonNodeConverterTest implements ConverterTesting2<St
     // class............................................................................................................
 
     @Override
-    public Class<StringToJsonNodeConverter<FakeConverterContext>> type() {
+    public Class<StringToJsonNodeConverter<FakeJsonNodeConverterContext>> type() {
         return Cast.to(StringToJsonNodeConverter.class);
     }
 }
