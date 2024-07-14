@@ -43,8 +43,8 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
     }
 
     @Override
-    public <C extends ConverterContext> Optional<Converter<C>> converter(final ConverterName name,
-                                                                         final List<?> values) {
+    public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
+                                                               final List<?> values) {
         Converter<?> converter;
 
         final List<?> copy = Lists.immutable(values);
@@ -73,13 +73,10 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
                 converter = JsonNodeConverters.toJsonNode();
                 break;
             default:
-                converter = null;
-                break;
+                throw new IllegalArgumentException("Unknown converter " + name);
         }
 
-        return Optional.ofNullable(
-                Cast.to(converter)
-        );
+        return Cast.to(converter);
     }
 
     final static String JSON_NODE_TO_STRING = "json-node-to";
