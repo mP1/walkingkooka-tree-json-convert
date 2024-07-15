@@ -18,13 +18,14 @@
 package walkingkooka.tree.json.convert;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.provider.ConverterProviderTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class JsonNodeConvertersConverterProviderTest implements ConverterProviderTesting<JsonNodeConvertersConverterProvider> {
 
     @Test
-    public void testConverterJsonNodeTo() {
+    public void testConverterSelectorJsonNodeTo() {
         this.converterAndCheck(
                 JsonNodeConvertersConverterProvider.JSON_NODE_TO + "",
                 JsonNodeConverters.jsonNodeTo()
@@ -32,9 +33,28 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
     }
 
     @Test
-    public void testConverterStringToJsonNode() {
+    public void testConverterSelectorStringToJsonNode() {
         this.converterAndCheck(
                 JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE + "",
+                JsonNodeConverters.stringToJsonNode()
+        );
+    }
+
+    @Test
+    public void testConverterNameJsonNodeTo() {
+        this.converterAndCheck(
+                JsonNodeConvertersConverterProvider.JSON_NODE_TO,
+                Lists.empty(),
+
+                JsonNodeConverters.jsonNodeTo()
+        );
+    }
+
+    @Test
+    public void testConverterNameStringToJsonNode() {
+        this.converterAndCheck(
+                JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE,
+                Lists.empty(),
                 JsonNodeConverters.stringToJsonNode()
         );
     }
