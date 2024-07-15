@@ -25,9 +25,11 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterInfo;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterProvider;
+import walkingkooka.convert.provider.ConverterSelector;
 import walkingkooka.net.UrlPath;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -40,6 +42,13 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
 
     private JsonNodeConvertersConverterProvider() {
         super();
+    }
+
+    @Override
+    public <C extends ConverterContext> Converter<C> converter(final ConverterSelector selector) {
+        Objects.requireNonNull(selector, "selector");
+
+        return selector.evaluateText(this);
     }
 
     @Override
