@@ -20,14 +20,19 @@ package walkingkooka.tree.json.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.provider.ConverterProviderTesting;
+import walkingkooka.plugin.ProviderContext;
+import walkingkooka.plugin.ProviderContexts;
 import walkingkooka.reflect.JavaVisibility;
 
 public final class JsonNodeConvertersConverterProviderTest implements ConverterProviderTesting<JsonNodeConvertersConverterProvider> {
+
+    private final static ProviderContext CONTEXT = ProviderContexts.fake();
 
     @Test
     public void testConverterSelectorJsonNodeTo() {
         this.converterAndCheck(
                 JsonNodeConvertersConverterProvider.JSON_NODE_TO + "",
+                CONTEXT,
                 JsonNodeConverters.jsonNodeTo()
         );
     }
@@ -36,6 +41,7 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
     public void testConverterSelectorStringToJsonNode() {
         this.converterAndCheck(
                 JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE + "",
+                CONTEXT,
                 JsonNodeConverters.stringToJsonNode()
         );
     }
@@ -45,7 +51,7 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
         this.converterAndCheck(
                 JsonNodeConvertersConverterProvider.JSON_NODE_TO,
                 Lists.empty(),
-
+                CONTEXT,
                 JsonNodeConverters.jsonNodeTo()
         );
     }
@@ -55,6 +61,7 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
         this.converterAndCheck(
                 JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE,
                 Lists.empty(),
+                CONTEXT,
                 JsonNodeConverters.stringToJsonNode()
         );
     }
