@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.json.convert;
 
+import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -31,6 +32,13 @@ public final class JsonNodeConverters implements PublicStaticHelper {
      */
     public static <C extends JsonNodeConverterContext> Converter<C> jsonNodeTo() {
         return JsonNodeToUnmarshallingConverter.instance();
+    }
+
+    /**
+     * {@see StringToClassConverter}
+     */
+    public static <C extends JsonNodeConverterContext> Converter<C> stringToClass() {
+        return StringToClassConverter.instance();
     }
 
     /**
