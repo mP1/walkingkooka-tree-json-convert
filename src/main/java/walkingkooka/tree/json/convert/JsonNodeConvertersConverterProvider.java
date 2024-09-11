@@ -23,6 +23,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.provider.ConverterInfo;
+import walkingkooka.convert.provider.ConverterInfoSet;
 import walkingkooka.convert.provider.ConverterName;
 import walkingkooka.convert.provider.ConverterProvider;
 import walkingkooka.convert.provider.ConverterSelector;
@@ -107,14 +108,16 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
     final static ConverterName TO_JSON_NODE = ConverterName.with(TO_JSON_NODE_STRING);
 
     @Override
-    public Set<ConverterInfo> converterInfos() {
+    public ConverterInfoSet converterInfos() {
         return INFOS;
     }
 
-    private final static Set<ConverterInfo> INFOS = Sets.of(
-            nameToConverterInfo(JSON_NODE_TO),
-            nameToConverterInfo(STRING_TO_JSON_NODE),
-            nameToConverterInfo(TO_JSON_NODE)
+    private final static ConverterInfoSet INFOS = ConverterInfoSet.with(
+            Sets.of(
+                    nameToConverterInfo(JSON_NODE_TO),
+                    nameToConverterInfo(STRING_TO_JSON_NODE),
+                    nameToConverterInfo(TO_JSON_NODE)
+            )
     );
 
     private static ConverterInfo nameToConverterInfo(final ConverterName name) {
