@@ -51,7 +51,7 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
                                                                final ProviderContext context) {
         Objects.requireNonNull(selector, "selector");
 
-        return selector.evaluateText(
+        return selector.evaluateValueText(
                 this,
                 context
         );
@@ -61,6 +61,10 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
     public <C extends ConverterContext> Converter<C> converter(final ConverterName name,
                                                                final List<?> values,
                                                                final ProviderContext context) {
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(values, "values");
+        Objects.requireNonNull(context, "context");
+
         Converter<?> converter;
 
         final List<?> copy = Lists.immutable(values);
