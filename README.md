@@ -1,4 +1,6 @@
 # walkingkooka-tree-json-convert
+![](https://tokei.rs/b1/github/mP1/walkingkooka-tree-json-convert)
+
 A collection of Converters for `walkingkooka.tree.json`
 
 - [JsonNodeTo](https://github.com/mP1/walkingkooka-tree-json-convert/blob/master/src/main/java/walkingkooka/tree/json/convert/JsonNodeToUnmarshallingConverter.java)
