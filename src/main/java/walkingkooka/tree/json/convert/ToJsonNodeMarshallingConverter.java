@@ -55,20 +55,20 @@ final class ToJsonNodeMarshallingConverter<C extends JsonNodeConverterContext> i
                                          final Class<T> type,
                                          final C context) {
         return this.canConvert(
-                value,
-                type,
-                context
+            value,
+            type,
+            context
         ) ?
-                this.successfulConversion(
-                        context.marshall(
-                                value
-                        ),
-                        type
-                ) :
-                this.failConversion(
-                        value,
-                        type
-                );
+            this.successfulConversion(
+                context.marshall(
+                    value
+                ),
+                type
+            ) :
+            this.failConversion(
+                value,
+                type
+            );
     }
 
     @Override

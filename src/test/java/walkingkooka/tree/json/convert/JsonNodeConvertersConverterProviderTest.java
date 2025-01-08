@@ -31,38 +31,38 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
     @Test
     public void testConverterSelectorJsonNodeTo() {
         this.converterAndCheck(
-                JsonNodeConvertersConverterProvider.JSON_NODE_TO + "",
-                CONTEXT,
-                JsonNodeConverters.jsonNodeTo()
+            JsonNodeConvertersConverterProvider.JSON_NODE_TO + "",
+            CONTEXT,
+            JsonNodeConverters.jsonNodeTo()
         );
     }
 
     @Test
     public void testConverterSelectorStringToJsonNode() {
         this.converterAndCheck(
-                JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE + "",
-                CONTEXT,
-                JsonNodeConverters.stringToJsonNode()
+            JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE + "",
+            CONTEXT,
+            JsonNodeConverters.stringToJsonNode()
         );
     }
 
     @Test
     public void testConverterNameJsonNodeTo() {
         this.converterAndCheck(
-                JsonNodeConvertersConverterProvider.JSON_NODE_TO,
-                Lists.empty(),
-                CONTEXT,
-                JsonNodeConverters.jsonNodeTo()
+            JsonNodeConvertersConverterProvider.JSON_NODE_TO,
+            Lists.empty(),
+            CONTEXT,
+            JsonNodeConverters.jsonNodeTo()
         );
     }
 
     @Test
     public void testConverterNameStringToJsonNode() {
         this.converterAndCheck(
-                JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE,
-                Lists.empty(),
-                CONTEXT,
-                JsonNodeConverters.stringToJsonNode()
+            JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE,
+            Lists.empty(),
+            CONTEXT,
+            JsonNodeConverters.stringToJsonNode()
         );
     }
 

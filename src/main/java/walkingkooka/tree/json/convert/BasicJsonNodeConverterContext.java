@@ -18,46 +18,35 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.Either;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextDelegator;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Function;
 
 /**
  * A {@link JsonNodeConverterContext} that uses given {@link ExpressionNumberConverterContext}, {@link JsonNodeMarshallContext}
  * and {@link JsonNodeUnmarshallContext}. Note the {@link ExpressionNumberKind} returned for all context should be the same.
  */
 final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
-        JsonNodeMarshallContextDelegator,
-        JsonNodeUnmarshallContextDelegator {
+    JsonNodeMarshallContextDelegator,
+    JsonNodeUnmarshallContextDelegator {
 
     static BasicJsonNodeConverterContext with(final ExpressionNumberConverterContext converterContext,
                                               final JsonNodeMarshallContext marshallContext,
                                               final JsonNodeUnmarshallContext unmarshallContext) {
         return new BasicJsonNodeConverterContext(
-                Objects.requireNonNull(converterContext, "converterContext"),
-                Objects.requireNonNull(marshallContext, "marshallContext"),
-                Objects.requireNonNull(unmarshallContext, "unmarshallContext")
+            Objects.requireNonNull(converterContext, "converterContext"),
+            Objects.requireNonNull(marshallContext, "marshallContext"),
+            Objects.requireNonNull(unmarshallContext, "unmarshallContext")
         );
     }
 
@@ -78,39 +67,39 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
     }
 
     @Override
-    public boolean canConvert(final Object value, 
+    public boolean canConvert(final Object value,
                               final Class<?> type) {
         return this.converterContext.canConvert(
-                value,
-                type
+            value,
+            type
         );
     }
 
-    @Override 
-    public <T> Either<T, String> convert(final Object value, 
+    @Override
+    public <T> Either<T, String> convert(final Object value,
                                          final Class<T> type) {
         return this.converterContext.convert(
-                value,
-                type
+            value,
+            type
         );
     }
 
-    @Override 
+    @Override
     public List<String> ampms() {
         return this.converterContext.ampms();
     }
 
-    @Override 
+    @Override
     public String ampm(final int hourOfDay) {
         return this.converterContext.ampm(hourOfDay);
     }
 
-    @Override 
+    @Override
     public List<String> monthNames() {
         return this.converterContext.monthNames();
     }
 
-    @Override 
+    @Override
     public String monthName(final int month) {
         return this.converterContext.monthName(month);
     }
@@ -120,32 +109,32 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
         return this.converterContext.monthNameAbbreviations();
     }
 
-    @Override 
+    @Override
     public String monthNameAbbreviation(final int month) {
         return this.converterContext.monthNameAbbreviation(month);
     }
 
-    @Override 
+    @Override
     public List<String> weekDayNames() {
         return this.converterContext.weekDayNames();
     }
 
-    @Override 
+    @Override
     public String weekDayName(final int day) {
         return this.converterContext.weekDayName(day);
     }
 
-    @Override 
+    @Override
     public List<String> weekDayNameAbbreviations() {
         return this.converterContext.weekDayNameAbbreviations();
     }
 
-    @Override 
+    @Override
     public String weekDayNameAbbreviation(final int day) {
         return this.converterContext.weekDayNameAbbreviation(day);
     }
 
-    @Override 
+    @Override
     public int defaultYear() {
         return this.converterContext.defaultYear();
     }
@@ -160,7 +149,7 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
         return this.converterContext.twoToFourDigitYear(year);
     }
 
-    @Override 
+    @Override
     public Locale locale() {
         return this.converterContext.locale();
     }
@@ -180,7 +169,7 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
         return this.converterContext.decimalSeparator();
     }
 
-    @Override 
+    @Override
     public String exponentSymbol() {
         return this.converterContext.exponentSymbol();
     }
@@ -200,7 +189,7 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
         return this.converterContext.negativeSign();
     }
 
-    @Override 
+    @Override
     public char positiveSign() {
         return this.converterContext.positiveSign();
     }

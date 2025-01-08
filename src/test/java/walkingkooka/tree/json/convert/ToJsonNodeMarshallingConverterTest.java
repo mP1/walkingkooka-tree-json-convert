@@ -32,7 +32,7 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import java.math.MathContext;
 
 public final class ToJsonNodeMarshallingConverterTest implements ConverterTesting2<ToJsonNodeMarshallingConverter<JsonNodeConverterContext>, JsonNodeConverterContext>,
-        ToStringTesting<ToJsonNodeMarshallingConverter<JsonNodeConverterContext>> {
+    ToStringTesting<ToJsonNodeMarshallingConverter<JsonNodeConverterContext>> {
 
     @Test
     public void testConvertToJsonNode() {
@@ -42,11 +42,11 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
         final ExpressionNumber number = context.expressionNumberKind().create(123);
 
         this.convertAndCheck(
-                converter,
-                number,
-                JsonNode.class,
-                context,
-                context.marshall(number)
+            converter,
+            number,
+            JsonNode.class,
+            context,
+            context.marshall(number)
         );
     }
 
@@ -55,18 +55,18 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
         final JsonNodeConverterContext context = this.createContext();
 
         final ExpressionNumber number = context.expressionNumberKind()
-                .create(123);
+            .create(123);
 
         this.convertAndCheck(
-                JsonNodeConverters.toJsonNode()
-                        .to(
-                        String.class,
-                                Converters.objectToString()
+            JsonNodeConverters.toJsonNode()
+                .to(
+                    String.class,
+                    Converters.objectToString()
                 ),
-                number,
-                String.class,
-                context,
-                context.marshall(number).toString()
+            number,
+            String.class,
+            context,
+            context.marshall(number).toString()
         );
     }
 
@@ -78,12 +78,12 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
     @Override
     public JsonNodeConverterContext createContext() {
         return JsonNodeConverterContexts.basic(
-                ExpressionNumberConverterContexts.fake(),
-                JsonNodeMarshallContexts.basic(),
-                JsonNodeUnmarshallContexts.basic(
-                        ExpressionNumberKind.BIG_DECIMAL,
-                        MathContext.DECIMAL32
-                )
+            ExpressionNumberConverterContexts.fake(),
+            JsonNodeMarshallContexts.basic(),
+            JsonNodeUnmarshallContexts.basic(
+                ExpressionNumberKind.BIG_DECIMAL,
+                MathContext.DECIMAL32
+            )
         );
     }
 
@@ -92,8 +92,8 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createConverter(),
-                "* to JsonNode"
+            this.createConverter(),
+            "* to JsonNode"
         );
     }
 

@@ -21,22 +21,17 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterTesting2;
-import walkingkooka.convert.FakeConverterContext;
-import walkingkooka.net.Url;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
-import walkingkooka.tree.json.JsonString;
-
-import java.util.function.Function;
 
 public final class StringToJsonNodeConverterTest implements ConverterTesting2<StringToJsonNodeConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
-        ToStringTesting<StringToJsonNodeConverter<FakeJsonNodeConverterContext>> {
+    ToStringTesting<StringToJsonNodeConverter<FakeJsonNodeConverterContext>> {
 
     @Test
     public void testConvertStringToJsonNodeWithBadJsonFails() {
         this.convertFails(
-                "bad json",
-                JsonNode.class
+            "bad json",
+            JsonNode.class
         );
     }
 
@@ -45,62 +40,62 @@ public final class StringToJsonNodeConverterTest implements ConverterTesting2<St
         final String json = "{}";
 
         this.convertStringAndCheck(
-                json,
-                JsonNode.class,
-                JsonNode.parse(json)
+            json,
+            JsonNode.class,
+            JsonNode.parse(json)
         );
     }
 
     @Test
     public void testConvertStringToJsonBoolean() {
         this.convertStringAndCheck(
-                JsonNode.booleanNode(true)
+            JsonNode.booleanNode(true)
         );
     }
 
     @Test
     public void testConvertStringToJsonNull() {
         this.convertStringAndCheck(
-                JsonNode.nullNode()
+            JsonNode.nullNode()
         );
     }
 
     @Test
     public void testConvertStringToJsonNumber() {
         this.convertStringAndCheck(
-                JsonNode.number(1)
+            JsonNode.number(1)
         );
     }
 
     @Test
     public void testConvertStringToJsonString() {
         this.convertStringAndCheck(
-                JsonNode.string("Abc123")
+            JsonNode.string("Abc123")
         );
     }
 
     @Test
     public void testConvertStringToJsonArray() {
         this.convertStringAndCheck(
-                JsonNode.array()
-                        .appendChild(JsonNode.booleanNode(true))
-                        .appendChild(JsonNode.nullNode())
-                        .appendChild(JsonNode.number(123))
+            JsonNode.array()
+                .appendChild(JsonNode.booleanNode(true))
+                .appendChild(JsonNode.nullNode())
+                .appendChild(JsonNode.number(123))
         );
     }
 
     @Test
     public void testConvertStringToJsonObject() {
         this.convertStringAndCheck(
-                JsonNode.object()
-                        .set(JsonPropertyName.with("field"), JsonNode.booleanNode(true))
+            JsonNode.object()
+                .set(JsonPropertyName.with("field"), JsonNode.booleanNode(true))
         );
     }
 
     private <T extends JsonNode> void convertStringAndCheck(final JsonNode json) {
         this.convertAndCheck(
-                json.toString(),
-                json
+            json.toString(),
+            json
         );
     }
 
@@ -108,9 +103,9 @@ public final class StringToJsonNodeConverterTest implements ConverterTesting2<St
                                                             final Class<T> type,
                                                             final T expected) {
         this.convertAndCheck(
-                json,
-                type,
-                expected
+            json,
+            type,
+            expected
         );
     }
 
@@ -129,8 +124,8 @@ public final class StringToJsonNodeConverterTest implements ConverterTesting2<St
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                StringToJsonNodeConverter.instance(),
-                StringToJsonNodeConverter.class.getSimpleName()
+            StringToJsonNodeConverter.instance(),
+            StringToJsonNodeConverter.class.getSimpleName()
         );
     }
 
