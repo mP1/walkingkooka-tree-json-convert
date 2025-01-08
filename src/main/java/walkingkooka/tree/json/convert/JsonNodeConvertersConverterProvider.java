@@ -32,8 +32,6 @@ import walkingkooka.plugin.ProviderContext;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * A {@link ConverterProvider} for {@link JsonNodeConverters}.
@@ -52,8 +50,8 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
         Objects.requireNonNull(selector, "selector");
 
         return selector.evaluateValueText(
-                this,
-                context
+            this,
+            context
         );
     }
 
@@ -117,21 +115,21 @@ final class JsonNodeConvertersConverterProvider implements ConverterProvider {
     }
 
     private final static ConverterInfoSet INFOS = ConverterInfoSet.with(
-            Sets.of(
-                    nameToConverterInfo(JSON_NODE_TO),
-                    nameToConverterInfo(STRING_TO_JSON_NODE),
-                    nameToConverterInfo(TO_JSON_NODE)
-            )
+        Sets.of(
+            nameToConverterInfo(JSON_NODE_TO),
+            nameToConverterInfo(STRING_TO_JSON_NODE),
+            nameToConverterInfo(TO_JSON_NODE)
+        )
     );
 
     private static ConverterInfo nameToConverterInfo(final ConverterName name) {
         return ConverterInfo.with(
-                JsonNodeConverterProviders.BASE_URL.appendPath(
-                        UrlPath.parse(
-                                name.value()
-                        )
-                ),
-                name
+            JsonNodeConverterProviders.BASE_URL.appendPath(
+                UrlPath.parse(
+                    name.value()
+                )
+            ),
+            name
         );
     }
 

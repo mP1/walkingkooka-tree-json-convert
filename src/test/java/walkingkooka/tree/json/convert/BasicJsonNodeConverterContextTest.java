@@ -19,11 +19,9 @@ package walkingkooka.tree.json.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
@@ -43,68 +41,68 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicJsonNodeConverterContextTest implements JsonNodeConverterContextTesting<BasicJsonNodeConverterContext>,
-        ToStringTesting<BasicJsonNodeConverterContext> {
+    ToStringTesting<BasicJsonNodeConverterContext> {
 
     private final static ExpressionNumberConverterContext CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
-            ExpressionNumberConverters.toNumberOrExpressionNumber(
-                    Converters.stringToNumber(
-                            (dnc) -> (DecimalFormat) DecimalFormat.getInstance()
-                    )
+        ExpressionNumberConverters.toNumberOrExpressionNumber(
+            Converters.stringToNumber(
+                (dnc) -> (DecimalFormat) DecimalFormat.getInstance()
+            )
+        ),
+        ConverterContexts.basic(
+            Converters.JAVA_EPOCH_OFFSET,
+            Converters.fake(),
+            DateTimeContexts.locale(
+                Locale.forLanguageTag("EN-AU"),
+                1950,
+                50,
+                LocalDateTime::now
             ),
-            ConverterContexts.basic(
-                    Converters.JAVA_EPOCH_OFFSET,
-                    Converters.fake(),
-                    DateTimeContexts.locale(
-                            Locale.forLanguageTag("EN-AU"),
-                            1950,
-                            50,
-                            LocalDateTime::now
-                    ),
-                    DecimalNumberContexts.american(MathContext.DECIMAL32)
-            ),
-            ExpressionNumberKind.DEFAULT
+            DecimalNumberContexts.american(MathContext.DECIMAL32)
+        ),
+        ExpressionNumberKind.DEFAULT
     );
 
     private final static JsonNodeMarshallContext MARSHALL_CONTEXT = JsonNodeMarshallContexts.basic();
 
     private final static JsonNodeUnmarshallContext UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
-            ExpressionNumberKind.DEFAULT,
-            CONVERTER_CONTEXT.mathContext()
+        ExpressionNumberKind.DEFAULT,
+        CONVERTER_CONTEXT.mathContext()
     );
 
     @Test
     public void testWithNullConverterContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicJsonNodeConverterContext.with(
-                        null,
-                        MARSHALL_CONTEXT,
-                        UNMARSHALL_CONTEXT
-                )
+            NullPointerException.class,
+            () -> BasicJsonNodeConverterContext.with(
+                null,
+                MARSHALL_CONTEXT,
+                UNMARSHALL_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullJsonNodeMarshallContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicJsonNodeConverterContext.with(
-                        CONVERTER_CONTEXT,
-                        null,
-                        UNMARSHALL_CONTEXT
-                )
+            NullPointerException.class,
+            () -> BasicJsonNodeConverterContext.with(
+                CONVERTER_CONTEXT,
+                null,
+                UNMARSHALL_CONTEXT
+            )
         );
     }
 
     @Test
     public void testWithNullJsonNodeUnmarshallContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicJsonNodeConverterContext.with(
-                        CONVERTER_CONTEXT,
-                        MARSHALL_CONTEXT,
-                        null
-                )
+            NullPointerException.class,
+            () -> BasicJsonNodeConverterContext.with(
+                CONVERTER_CONTEXT,
+                MARSHALL_CONTEXT,
+                null
+            )
         );
     }
 
@@ -151,9 +149,9 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     @Override
     public BasicJsonNodeConverterContext createContext() {
         return BasicJsonNodeConverterContext.with(
-                CONVERTER_CONTEXT,
-                MARSHALL_CONTEXT,
-                UNMARSHALL_CONTEXT
+            CONVERTER_CONTEXT,
+            MARSHALL_CONTEXT,
+            UNMARSHALL_CONTEXT
         );
     }
 
@@ -162,10 +160,10 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
         final BasicJsonNodeConverterContext context = this.createContext();
 
         this.convertAndCheck(
-                context,
-                "123",
-                ExpressionNumber.class,
-                context.expressionNumberKind().create(123)
+            context,
+            "123",
+            ExpressionNumber.class,
+            context.expressionNumberKind().create(123)
         );
     }
 
@@ -175,10 +173,10 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
         final ExpressionNumber number = context.expressionNumberKind().create(12);
 
         this.checkEquals(
-                number,
-                context.unmarshallWithType(
-                        context.marshallWithType(number)
-                )
+            number,
+            context.unmarshallWithType(
+                context.marshallWithType(number)
+            )
         );
     }
 
@@ -187,8 +185,8 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createContext(),
-                CONVERTER_CONTEXT + " " + MARSHALL_CONTEXT + " " + UNMARSHALL_CONTEXT
+            this.createContext(),
+            CONVERTER_CONTEXT + " " + MARSHALL_CONTEXT + " " + UNMARSHALL_CONTEXT
         );
     }
 

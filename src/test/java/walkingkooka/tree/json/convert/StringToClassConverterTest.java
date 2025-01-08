@@ -21,10 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterTesting2;
-import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonPropertyName;
 import walkingkooka.tree.json.JsonString;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
 import java.math.BigDecimal;
@@ -32,62 +29,62 @@ import java.math.BigInteger;
 import java.util.Optional;
 
 public final class StringToClassConverterTest implements ConverterTesting2<StringToClassConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
-        ToStringTesting<StringToClassConverter<FakeJsonNodeConverterContext>> {
+    ToStringTesting<StringToClassConverter<FakeJsonNodeConverterContext>> {
 
     @Test
     public void testConvertStringToClassWithUnknownClassFails() {
         this.convertFails(
-                "Unknown",
-                Class.class
+            "Unknown",
+            Class.class
         );
     }
 
     @Test
     public void testConvertStringToClassWithSimpleClassFails() {
         this.convertFails(
-                BigDecimal.class.getSimpleName(),
-                Class.class
+            BigDecimal.class.getSimpleName(),
+            Class.class
         );
     }
 
     @Test
     public void testConvertStringToClassBigDecimal() {
         this.convertStringAndCheck(
-                BigDecimal.class.getName(),
-                BigDecimal.class
+            BigDecimal.class.getName(),
+            BigDecimal.class
         );
     }
 
     @Test
     public void testConvertStringToClassBigInteger() {
         this.convertStringAndCheck(
-                BigInteger.class.getName(),
-                BigInteger.class
+            BigInteger.class.getName(),
+            BigInteger.class
         );
     }
 
     @Test
     public void testConvertStringToClassInteger() {
         this.convertStringAndCheck(
-                Integer.class.getName(),
-                Integer.class
+            Integer.class.getName(),
+            Integer.class
         );
     }
 
     @Test
     public void testConvertStringToClassLong() {
         this.convertStringAndCheck(
-                Long.class.getName(),
-                Long.class
+            Long.class.getName(),
+            Long.class
         );
     }
 
     private void convertStringAndCheck(final String className,
                                        final Class<?> expected) {
         this.convertAndCheck(
-                className,
-                Class.class,
-                expected
+            className,
+            Class.class,
+            expected
         );
     }
 
@@ -102,7 +99,7 @@ public final class StringToClassConverterTest implements ConverterTesting2<Strin
             @Override
             public Optional<Class<?>> registeredType(final JsonString string) {
                 return JsonNodeMarshallContexts.basic()
-                        .registeredType(string);
+                    .registeredType(string);
             }
         };
     }
@@ -112,8 +109,8 @@ public final class StringToClassConverterTest implements ConverterTesting2<Strin
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                StringToClassConverter.instance(),
-                StringToClassConverter.class.getSimpleName()
+            StringToClassConverter.instance(),
+            StringToClassConverter.class.getSimpleName()
         );
     }
 

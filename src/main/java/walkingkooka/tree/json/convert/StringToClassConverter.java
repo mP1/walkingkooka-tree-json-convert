@@ -23,8 +23,6 @@ import walkingkooka.convert.Converter;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
 
-import java.util.Optional;
-
 /**
  * A {@link Converter} that supports converting {@link String} to {@link Class} by querying the {@link walkingkooka.tree.json.marshall.JsonNodeContext}.
  */
@@ -58,19 +56,19 @@ final class StringToClassConverter<C extends JsonNodeConverterContext> implement
                                          final Class<T> type,
                                          final C context) {
         return this.canConvert(
-                value,
+            value,
+            type,
+            context
+        ) ?
+            this.lookup(
+                (String) value,
                 type,
                 context
-        ) ?
-                this.lookup(
-                        (String)value,
-                        type,
-                        context
-                ) :
-                this.failConversion(
-                        value,
-                        type
-                );
+            ) :
+            this.failConversion(
+                value,
+                type
+            );
     }
 
     /**
@@ -80,17 +78,17 @@ final class StringToClassConverter<C extends JsonNodeConverterContext> implement
                                          final Class<T> type,
                                          final C context) {
         return context.registeredType(
-                JsonNode.string(value)
+            JsonNode.string(value)
         ).map(
-                k -> this.successfulConversion(
-                        k,
-                        type
-                )
+            k -> this.successfulConversion(
+                k,
+                type
+            )
         ).orElseGet(
-                () -> this.failConversion(
-                        value,
-                        type
-                )
+            () -> this.failConversion(
+                value,
+                type
+            )
         );
     }
 

@@ -56,18 +56,18 @@ final class StringToJsonNodeConverter<C extends JsonNodeConverterContext> implem
                                          final Class<T> type,
                                          final C context) {
         return this.canConvert(
-                value,
-                type,
-                context
+            value,
+            type,
+            context
         ) ?
-                this.parseJson(
-                        (String)value,
-                        type
-                ) :
-                this.failConversion(
-                        value,
-                        type
-                );
+            this.parseJson(
+                (String) value,
+                type
+            ) :
+            this.failConversion(
+                value,
+                type
+            );
     }
 
     /**
@@ -79,16 +79,16 @@ final class StringToJsonNodeConverter<C extends JsonNodeConverterContext> implem
 
         try {
             result = this.successfulConversion(
-                    JsonNode.parse(value)
-                            .cast(
-                                    Cast.to(type)
-                            ),
-                    type
+                JsonNode.parse(value)
+                    .cast(
+                        Cast.to(type)
+                    ),
+                type
             );
         } catch (final RuntimeException cause) {
             result = this.failConversion(
-                    value,
-                    type
+                value,
+                type
             );
         }
 
