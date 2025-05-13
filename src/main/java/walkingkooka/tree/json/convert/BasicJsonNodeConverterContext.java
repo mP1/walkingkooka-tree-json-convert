@@ -180,8 +180,8 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
     }
 
     @Override
-    public char percentageSymbol() {
-        return this.converterContext.percentageSymbol();
+    public char percentSymbol() {
+        return this.converterContext.percentSymbol();
     }
 
     @Override

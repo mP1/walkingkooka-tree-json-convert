@@ -144,8 +144,8 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     }
 
     @Override
-    public char percentageSymbol() {
-        return CONVERTER_CONTEXT.percentageSymbol();
+    public char percentSymbol() {
+        return CONVERTER_CONTEXT.percentSymbol();
     }
 
     @Override
