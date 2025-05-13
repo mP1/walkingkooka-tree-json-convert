@@ -18,6 +18,8 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.Either;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.marshall.JsonNodeContext;
@@ -38,7 +40,8 @@ import java.util.Objects;
  */
 final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
     JsonNodeMarshallContextDelegator,
-    JsonNodeUnmarshallContextDelegator {
+    JsonNodeUnmarshallContextDelegator,
+    DecimalNumberContextDelegator {
 
     static BasicJsonNodeConverterContext with(final ExpressionNumberConverterContext converterContext,
                                               final JsonNodeMarshallContext marshallContext,
@@ -160,43 +163,15 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
     }
 
     @Override
-    public String currencySymbol() {
-        return this.converterContext.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.converterContext.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.converterContext.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.converterContext.groupSeparator();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return this.converterContext.percentSymbol();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.converterContext.negativeSign();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.converterContext.positiveSign();
-    }
-
-    @Override
     public MathContext mathContext() {
         return this.converterContext.mathContext();
+    }
+
+    // DecimalNumberContextDelegator....................................................................................
+
+    @Override
+    public DecimalNumberContext decimalNumberContext() {
+        return this.converterContext;
     }
 
     private final ExpressionNumberConverterContext converterContext;

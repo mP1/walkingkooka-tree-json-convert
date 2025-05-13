@@ -23,6 +23,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
@@ -43,7 +45,8 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicJsonNodeConverterContextTest implements JsonNodeConverterContextTesting<BasicJsonNodeConverterContext>,
-    ToStringTesting<BasicJsonNodeConverterContext> {
+    ToStringTesting<BasicJsonNodeConverterContext>,
+    DecimalNumberContextDelegator {
 
     private final static ExpressionNumberConverterContext CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
         ExpressionNumberConverters.toNumberOrExpressionNumber(
@@ -114,23 +117,12 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     }
 
     @Override
-    public String currencySymbol() {
-        return CONVERTER_CONTEXT.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return CONVERTER_CONTEXT.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return CONVERTER_CONTEXT.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return CONVERTER_CONTEXT.groupSeparator();
+    public BasicJsonNodeConverterContext createContext() {
+        return BasicJsonNodeConverterContext.with(
+            CONVERTER_CONTEXT,
+            MARSHALL_CONTEXT,
+            UNMARSHALL_CONTEXT
+        );
     }
 
     @Override
@@ -139,27 +131,8 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     }
 
     @Override
-    public char negativeSign() {
-        return CONVERTER_CONTEXT.negativeSign();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return CONVERTER_CONTEXT.percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return CONVERTER_CONTEXT.positiveSign();
-    }
-
-    @Override
-    public BasicJsonNodeConverterContext createContext() {
-        return BasicJsonNodeConverterContext.with(
-            CONVERTER_CONTEXT,
-            MARSHALL_CONTEXT,
-            UNMARSHALL_CONTEXT
-        );
+    public DecimalNumberContext decimalNumberContext() {
+        return CONVERTER_CONTEXT;
     }
 
     @Test
