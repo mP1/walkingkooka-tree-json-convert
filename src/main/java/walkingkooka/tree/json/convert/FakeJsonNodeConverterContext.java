@@ -18,7 +18,7 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FakeExpressionNumberConverterContext;
+import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
