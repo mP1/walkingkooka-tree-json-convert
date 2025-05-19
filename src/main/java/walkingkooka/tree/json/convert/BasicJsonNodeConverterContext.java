@@ -18,6 +18,7 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.Either;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -160,6 +161,11 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
     @Override
     public LocalDateTime now() {
         return this.converterContext.now();
+    }
+
+    @Override
+    public DateTimeSymbols dateTimeSymbols() {
+        return this.converterContext.dateTimeSymbols();
     }
 
     @Override
