@@ -19,8 +19,11 @@ package walkingkooka.tree.json.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterTesting2;
+import walkingkooka.convert.Converters;
 import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
@@ -28,8 +31,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Optional;
 
-public final class StringToClassConverterTest implements ConverterTesting2<StringToClassConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
-    ToStringTesting<StringToClassConverter<FakeJsonNodeConverterContext>> {
+public final class TextToClassConverterTest implements ConverterTesting2<TextToClassConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
+    ToStringTesting<TextToClassConverter<FakeJsonNodeConverterContext>> {
 
     @Test
     public void testConvertStringToClassWithUnknownClassFails() {
@@ -89,13 +92,36 @@ public final class StringToClassConverterTest implements ConverterTesting2<Strin
     }
 
     @Override
-    public StringToClassConverter<FakeJsonNodeConverterContext> createConverter() {
-        return StringToClassConverter.instance();
+    public TextToClassConverter<FakeJsonNodeConverterContext> createConverter() {
+        return TextToClassConverter.instance();
     }
 
     @Override
     public FakeJsonNodeConverterContext createContext() {
         return new FakeJsonNodeConverterContext() {
+
+            @Override
+            public boolean canConvert(final Object value,
+                                      final Class<?> type) {
+                return this.converter.canConvert(
+                    value,
+                    type,
+                    this
+                );
+            }
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> type) {
+                return this.converter.convert(
+                    value,
+                    type,
+                    this
+                );
+            }
+
+            private final Converter<FakeJsonNodeConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
+
             @Override
             public Optional<Class<?>> registeredType(final JsonString string) {
                 return JsonNodeMarshallContexts.basic()
@@ -109,15 +135,15 @@ public final class StringToClassConverterTest implements ConverterTesting2<Strin
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            StringToClassConverter.instance(),
-            StringToClassConverter.class.getSimpleName()
+            TextToClassConverter.instance(),
+            TextToClassConverter.class.getSimpleName()
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<StringToClassConverter<FakeJsonNodeConverterContext>> type() {
-        return Cast.to(StringToClassConverter.class);
+    public Class<TextToClassConverter<FakeJsonNodeConverterContext>> type() {
+        return Cast.to(TextToClassConverter.class);
     }
 }
