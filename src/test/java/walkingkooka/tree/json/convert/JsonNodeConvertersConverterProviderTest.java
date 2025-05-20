@@ -38,11 +38,11 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
     }
 
     @Test
-    public void testConverterSelectorStringToJsonNode() {
+    public void testConverterSelectorTextToJsonNode() {
         this.converterAndCheck(
-            JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE + "",
+            JsonNodeConvertersConverterProvider.TEXT_TO_JSON_NODE + "",
             CONTEXT,
-            JsonNodeConverters.stringToJsonNode()
+            JsonNodeConverters.textToJsonNode()
         );
     }
 
@@ -57,12 +57,12 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
     }
 
     @Test
-    public void testConverterNameStringToJsonNode() {
+    public void testConverterNameTextToJsonNode() {
         this.converterAndCheck(
-            JsonNodeConvertersConverterProvider.STRING_TO_JSON_NODE,
+            JsonNodeConvertersConverterProvider.TEXT_TO_JSON_NODE,
             Lists.empty(),
             CONTEXT,
-            JsonNodeConverters.stringToJsonNode()
+            JsonNodeConverters.textToJsonNode()
         );
     }
 
