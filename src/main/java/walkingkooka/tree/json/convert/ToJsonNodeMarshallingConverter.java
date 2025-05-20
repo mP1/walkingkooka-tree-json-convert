@@ -18,14 +18,14 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.Cast;
-import walkingkooka.Either;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.TryingShortCircuitingConverter;
 import walkingkooka.tree.json.JsonNode;
 
 /**
  * A {@link Converter} that supports marshalling a given {@link Object} to {@link JsonNode} using {@link JsonNodeConverterContext#marshall(Object)}.
  */
-final class ToJsonNodeMarshallingConverter<C extends JsonNodeConverterContext> implements Converter<C> {
+final class ToJsonNodeMarshallingConverter<C extends JsonNodeConverterContext> implements TryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.
@@ -51,24 +51,12 @@ final class ToJsonNodeMarshallingConverter<C extends JsonNodeConverterContext> i
     }
 
     @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> type,
-                                         final C context) {
-        return this.canConvert(
-            value,
-            type,
-            context
-        ) ?
-            this.successfulConversion(
-                context.marshall(
-                    value
-                ),
-                type
-            ) :
-            this.failConversion(
-                value,
-                type
-            );
+    public Object tryConvertOrFail(final Object value,
+                                   final Class<?> type,
+                                   final C context) {
+        return context.marshall(
+            value
+        );
     }
 
     @Override
