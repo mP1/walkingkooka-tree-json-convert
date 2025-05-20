@@ -19,14 +19,14 @@ package walkingkooka.tree.json.convert;
 
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.TextToTemplatedConverter;
+import walkingkooka.convert.TextToTryingShortCircuitingConverter;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
 
 /**
  * A {@link Converter} that supports converting {@link String} to {@link Class} by querying the {@link walkingkooka.tree.json.marshall.JsonNodeContext}.
  */
-final class TextToClassConverter<C extends JsonNodeConverterContext> implements TextToTemplatedConverter<C> {
+final class TextToClassConverter<C extends JsonNodeConverterContext> implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.
