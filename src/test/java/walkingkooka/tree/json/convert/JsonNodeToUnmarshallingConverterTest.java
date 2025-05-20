@@ -19,11 +19,14 @@ package walkingkooka.tree.json.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterTesting2;
+import walkingkooka.convert.Converters;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
+import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -50,14 +53,14 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
     }
 
     @Test
-    public void testConvertStringToJsonNodeTo() {
+    public void testConvertTextToJsonNodeTo() {
         final JsonNodeConverterContext context = this.createContext();
         final JsonNodeToUnmarshallingConverter converter = this.createConverter();
 
         final ExpressionNumber number = context.expressionNumberKind().create(123);
 
         this.convertAndCheck(
-            JsonNodeConverters.stringToJsonNode().to(
+            JsonNodeConverters.textToJsonNode().to(
                 JsonNode.class,
                 converter
             ),
@@ -76,7 +79,29 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
     @Override
     public JsonNodeConverterContext createContext() {
         return JsonNodeConverterContexts.basic(
-            ExpressionNumberConverterContexts.fake(),
+            new FakeExpressionNumberConverterContext() {
+                @Override
+                public boolean canConvert(final Object value,
+                                          final Class<?> type) {
+                    return this.converter.canConvert(
+                        value,
+                        type,
+                        this
+                    );
+                }
+
+                @Override
+                public <T> Either<T, String> convert(final Object value,
+                                                     final Class<T> type) {
+                    return this.converter.convert(
+                        value,
+                        type,
+                        this
+                    );
+                }
+
+                private final Converter<FakeExpressionNumberConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
+            },
             JsonNodeMarshallContexts.basic(),
             JsonNodeUnmarshallContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
