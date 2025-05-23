@@ -56,6 +56,11 @@ public class FakeJsonNodeConverterContext extends FakeExpressionNumberConverterC
     }
 
     @Override
+    public JsonNode marshallOptionalWithType(final Optional<?> optional) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public JsonNode marshallWithType(final Object value) {
         throw new UnsupportedOperationException();
     }
@@ -99,6 +104,11 @@ public class FakeJsonNodeConverterContext extends FakeExpressionNumberConverterC
     @Override
     public <T> Optional<T> unmarshallOptional(final JsonNode jsonNode,
                                               final Class<T> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> unmarshallOptionalWithType(final JsonNode jsonNode) {
         throw new UnsupportedOperationException();
     }
 
