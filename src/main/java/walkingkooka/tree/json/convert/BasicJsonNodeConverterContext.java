@@ -22,11 +22,10 @@ import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
@@ -37,38 +36,33 @@ import java.util.Objects;
  * and {@link JsonNodeUnmarshallContext}. Note the {@link ExpressionNumberKind} returned for all context should be the same.
  */
 final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
-    JsonNodeMarshallContextDelegator,
-    JsonNodeUnmarshallContextDelegator,
+    JsonNodeMarshallUnmarshallContextDelegator,
     ConverterContextDelegator {
 
     static BasicJsonNodeConverterContext with(final ExpressionNumberConverterContext converterContext,
-                                              final JsonNodeMarshallContext marshallContext,
-                                              final JsonNodeUnmarshallContext unmarshallContext) {
+                                              final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext) {
         return new BasicJsonNodeConverterContext(
             Objects.requireNonNull(converterContext, "converterContext"),
-            Objects.requireNonNull(marshallContext, "marshallContext"),
-            Objects.requireNonNull(unmarshallContext, "unmarshallContext")
+            Objects.requireNonNull(marshallUnmarshallContext, "marshallUnmarshallContext")
         );
     }
 
     private BasicJsonNodeConverterContext(final ExpressionNumberConverterContext converterContext,
-                                          final JsonNodeMarshallContext marshallContext,
-                                          final JsonNodeUnmarshallContext unmarshallContext) {
+                                          final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext) {
         this.converterContext = converterContext;
-        this.marshallContext = marshallContext;
-        this.unmarshallContext = unmarshallContext;
+        this.marshallUnmarshallContext = marshallUnmarshallContext;
     }
 
     @Override
     public JsonNodeConverterContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
-        final JsonNodeUnmarshallContext unmarshallContext = this.jsonNodeUnmarshallContext()
-            .setPreProcessor(processor);
-        return this.unmarshallContext.equals(unmarshallContext) ?
+        final JsonNodeMarshallUnmarshallContext before = this.marshallUnmarshallContext;
+        final JsonNodeMarshallUnmarshallContext after = before.setPreProcessor(processor);
+
+        return before.equals(after) ?
             this :
             BasicJsonNodeConverterContext.with(
                 this.converterContext,
-                this.marshallContext,
-                unmarshallContext
+                after
             );
     }
 
@@ -99,35 +93,19 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
 
     private final ExpressionNumberConverterContext converterContext;
 
-    // JsonNodeContext..................................................................................................
+    // JsonNodeMarshallUnmarshallContext................................................................................
 
     @Override
-    public JsonNodeContext jsonNodeContext() {
-        return this.marshallContext;
+    public JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
+        return this.marshallUnmarshallContext;
     }
 
-    // JsonNodeMarshallContext..........................................................................................
+    private final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext;
 
-    @Override
-    public JsonNodeMarshallContext jsonNodeMarshallContext() {
-        return this.marshallContext;
-    }
-
-    private final JsonNodeMarshallContext marshallContext;
-
-    // JsonNodeUnmarshallContext........................................................................................
-
-    @Override
-    public JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
-        return this.unmarshallContext;
-    }
-
-    private final JsonNodeUnmarshallContext unmarshallContext;
-
-    // Object..........................................................................................................
+    // Object...........................................................................................................
 
     @Override
     public String toString() {
-        return this.converterContext + " " + this.marshallContext + " " + this.unmarshallContext;
+        return this.converterContext + " " + this.marshallUnmarshallContext;
     }
 }

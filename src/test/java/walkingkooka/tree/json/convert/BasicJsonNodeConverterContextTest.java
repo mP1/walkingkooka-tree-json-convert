@@ -31,9 +31,9 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
@@ -73,11 +73,12 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
         ExpressionNumberKind.DEFAULT
     );
 
-    private final static JsonNodeMarshallContext MARSHALL_CONTEXT = JsonNodeMarshallContexts.basic();
-
-    private final static JsonNodeUnmarshallContext UNMARSHALL_CONTEXT = JsonNodeUnmarshallContexts.basic(
-        ExpressionNumberKind.DEFAULT,
-        CONVERTER_CONTEXT.mathContext()
+    private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
+        JsonNodeMarshallContexts.basic(),
+        JsonNodeUnmarshallContexts.basic(
+            ExpressionNumberKind.DEFAULT,
+            CONVERTER_CONTEXT.mathContext()
+        )
     );
 
     @Test
@@ -86,31 +87,17 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
             NullPointerException.class,
             () -> BasicJsonNodeConverterContext.with(
                 null,
-                MARSHALL_CONTEXT,
-                UNMARSHALL_CONTEXT
+                MARSHALL_UNMARSHALL_CONTEXT
             )
         );
     }
 
     @Test
-    public void testWithNullJsonNodeMarshallContextFails() {
+    public void testWithNullJsonNodeMarshallUnmarshallContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> BasicJsonNodeConverterContext.with(
                 CONVERTER_CONTEXT,
-                null,
-                UNMARSHALL_CONTEXT
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullJsonNodeUnmarshallContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> BasicJsonNodeConverterContext.with(
-                CONVERTER_CONTEXT,
-                MARSHALL_CONTEXT,
                 null
             )
         );
@@ -120,8 +107,7 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     public BasicJsonNodeConverterContext createContext() {
         return BasicJsonNodeConverterContext.with(
             CONVERTER_CONTEXT,
-            MARSHALL_CONTEXT,
-            UNMARSHALL_CONTEXT
+            MARSHALL_UNMARSHALL_CONTEXT
         );
     }
 
@@ -166,7 +152,7 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     public void testToString() {
         this.toStringAndCheck(
             this.createContext(),
-            CONVERTER_CONTEXT + " " + MARSHALL_CONTEXT + " " + UNMARSHALL_CONTEXT
+            CONVERTER_CONTEXT + " " + MARSHALL_UNMARSHALL_CONTEXT
         );
     }
 

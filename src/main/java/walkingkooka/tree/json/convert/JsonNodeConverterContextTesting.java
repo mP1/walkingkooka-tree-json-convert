@@ -18,12 +18,10 @@
 package walkingkooka.tree.json.convert;
 
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextTesting;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContextTesting;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextTesting;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextTesting;
 
 public interface JsonNodeConverterContextTesting<C extends JsonNodeConverterContext> extends ExpressionNumberConverterContextTesting<C>,
-    JsonNodeMarshallContextTesting<C>,
-    JsonNodeUnmarshallContextTesting<C> {
+    JsonNodeMarshallUnmarshallContextTesting<C> {
 
     // necessary because the 3 Testing interface have different default impls
     default String typeNameSuffix() {
