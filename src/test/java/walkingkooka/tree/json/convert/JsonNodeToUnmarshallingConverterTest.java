@@ -78,8 +78,16 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
 
     @Override
     public JsonNodeConverterContext createContext() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.BIG_DECIMAL;
+
         return JsonNodeConverterContexts.basic(
             new FakeExpressionNumberConverterContext() {
+
+                @Override
+                public ExpressionNumberKind expressionNumberKind() {
+                    return kind;
+                }
+
                 @Override
                 public boolean canConvert(final Object value,
                                           final Class<?> type) {
@@ -104,7 +112,7 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
             },
             JsonNodeMarshallContexts.basic(),
             JsonNodeUnmarshallContexts.basic(
-                ExpressionNumberKind.BIG_DECIMAL,
+                kind,
                 MathContext.DECIMAL32
             )
         );

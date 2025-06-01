@@ -24,7 +24,7 @@ import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
+import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
@@ -77,11 +77,19 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
 
     @Override
     public JsonNodeConverterContext createContext() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.BIG_DECIMAL;
+
         return JsonNodeConverterContexts.basic(
-            ExpressionNumberConverterContexts.fake(),
+            new FakeExpressionNumberConverterContext() {
+
+                @Override
+                public ExpressionNumberKind expressionNumberKind() {
+                    return kind;
+                }
+            },
             JsonNodeMarshallContexts.basic(),
             JsonNodeUnmarshallContexts.basic(
-                ExpressionNumberKind.BIG_DECIMAL,
+                kind,
                 MathContext.DECIMAL32
             )
         );
