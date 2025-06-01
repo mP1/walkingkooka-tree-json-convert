@@ -68,6 +68,12 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
     // DecimalNumberContextDelegator....................................................................................
 
     @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        // prefer to source ExpressionNumberKind from ExpressionNumberConverterContext rather than JsonNodeUnmarshallContext
+        return this.converterContext.expressionNumberKind();
+    }
+
+    @Override
     public MathContext mathContext() {
         return this.converterContext.mathContext();
     }
