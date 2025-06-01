@@ -21,9 +21,13 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 /**
  * A {@link ConverterContext} that adds additional methods to support marshalling/unmarshaling {@link walkingkooka.tree.json.JsonNode}.
  */
 public interface JsonNodeConverterContext extends ExpressionNumberConverterContext, JsonNodeMarshallContext, JsonNodeUnmarshallContext {
+
+    @Override
+    JsonNodeConverterContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
 }

@@ -21,9 +21,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Collection;
@@ -36,7 +34,7 @@ import java.util.function.Function;
 public class FakeJsonNodeConverterContext extends FakeExpressionNumberConverterContext implements JsonNodeConverterContext {
 
     @Override
-    public JsonNodeMarshallContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+    public JsonNodeConverterContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
         throw new UnsupportedOperationException();
     }
 
@@ -86,7 +84,7 @@ public class FakeJsonNodeConverterContext extends FakeExpressionNumberConverterC
     }
 
     @Override
-    public JsonNodeUnmarshallContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+    public JsonNodeConverterContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
         throw new UnsupportedOperationException();
     }
 
