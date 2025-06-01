@@ -29,6 +29,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
@@ -110,10 +111,12 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
 
                 private final Converter<FakeExpressionNumberConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
             },
-            JsonNodeMarshallContexts.basic(),
-            JsonNodeUnmarshallContexts.basic(
-                kind,
-                MathContext.DECIMAL32
+            JsonNodeMarshallUnmarshallContexts.basic(
+                JsonNodeMarshallContexts.basic(),
+                JsonNodeUnmarshallContexts.basic(
+                    kind,
+                    MathContext.DECIMAL32
+                )
             )
         );
     }

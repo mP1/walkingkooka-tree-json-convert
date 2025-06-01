@@ -19,8 +19,7 @@ package walkingkooka.tree.json.convert;
 
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 
 /**
  * A collection of {@link JsonNodeConverterContext}
@@ -31,12 +30,10 @@ public final class JsonNodeConverterContexts implements PublicStaticHelper {
      * {@see BasicJsonNodeConverterContext}
      */
     public static JsonNodeConverterContext basic(final ExpressionNumberConverterContext converterContext,
-                                                 final JsonNodeMarshallContext marshallContext,
-                                                 final JsonNodeUnmarshallContext unmarshallContext) {
+                                                 final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext) {
         return BasicJsonNodeConverterContext.with(
             converterContext,
-            marshallContext,
-            unmarshallContext
+            marshallUnmarshallContext
         );
     }
 

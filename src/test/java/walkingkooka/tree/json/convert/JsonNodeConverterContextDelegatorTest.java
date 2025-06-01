@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.json.convert.JsonNodeConverterContextDelegatorTest.TestJsonNodeConverterContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -121,10 +122,12 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                     ),
                     numberKind
                 ),
-                JsonNodeMarshallContexts.basic(),
-                JsonNodeUnmarshallContexts.basic(
-                    numberKind,
-                    MATH_CONTEXT
+                JsonNodeMarshallUnmarshallContexts.basic(
+                    JsonNodeMarshallContexts.basic(),
+                    JsonNodeUnmarshallContexts.basic(
+                        numberKind,
+                        MATH_CONTEXT
+                    )
                 )
             );
         }
