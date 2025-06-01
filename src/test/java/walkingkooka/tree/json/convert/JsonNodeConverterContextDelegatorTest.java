@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.json.convert.JsonNodeConverterContextDelegatorTest.TestJsonNodeConverterContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
@@ -37,6 +38,21 @@ import java.util.Locale;
 
 public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConverterContextTesting<TestJsonNodeConverterContextDelegator>,
     DecimalNumberContextDelegator {
+
+    @Override
+    public void testSetPreProcessorNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetPreProcessor() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetPreProcessorSame() {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public void testCheckToStringOverridden() {
@@ -75,6 +91,11 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
     }
 
     static class TestJsonNodeConverterContextDelegator implements JsonNodeConverterContextDelegator {
+
+        @Override
+        public TestJsonNodeConverterContextDelegator setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+            throw new UnsupportedOperationException();
+        }
 
         @Override
         public JsonNodeConverterContext jsonNodeConverterContext() {
