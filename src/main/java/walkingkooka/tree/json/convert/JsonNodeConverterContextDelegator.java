@@ -20,18 +20,14 @@ package walkingkooka.tree.json.convert;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextDelegator;
-import walkingkooka.tree.json.marshall.JsonNodeContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
-import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 
 import java.math.MathContext;
 
 public interface JsonNodeConverterContextDelegator extends JsonNodeConverterContext,
     ExpressionNumberConverterContextDelegator,
-    JsonNodeMarshallContextDelegator,
-    JsonNodeUnmarshallContextDelegator {
+    JsonNodeMarshallUnmarshallContextDelegator {
 
     JsonNodeConverterContext jsonNodeConverterContext();
 
@@ -54,22 +50,10 @@ public interface JsonNodeConverterContextDelegator extends JsonNodeConverterCont
             .mathContext();
     }
 
-    // JsonNodeMarshallContextDelegator.................................................................................
+    // JsonNodeMarshallUnmarshallContextDelegator.......................................................................
 
     @Override
-    default JsonNodeMarshallContext jsonNodeMarshallContext() {
-        return this.jsonNodeConverterContext();
-    }
-
-    // JsonNodeUnmarshallContextDelegator...............................................................................
-
-    @Override
-    default JsonNodeUnmarshallContext jsonNodeUnmarshallContext() {
-        return this.jsonNodeConverterContext();
-    }
-
-    @Override
-    default JsonNodeContext jsonNodeContext() {
+    default JsonNodeMarshallUnmarshallContext jsonNodeMarshallUnmarshallContext() {
         return this.jsonNodeConverterContext();
     }
 }
