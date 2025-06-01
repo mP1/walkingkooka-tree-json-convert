@@ -27,6 +27,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextDelegator;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
 import java.util.Objects;
@@ -56,6 +57,19 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
         this.converterContext = converterContext;
         this.marshallContext = marshallContext;
         this.unmarshallContext = unmarshallContext;
+    }
+
+    @Override
+    public JsonNodeConverterContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor) {
+        final JsonNodeUnmarshallContext unmarshallContext = this.jsonNodeUnmarshallContext()
+            .setPreProcessor(processor);
+        return this.unmarshallContext.equals(unmarshallContext) ?
+            this :
+            BasicJsonNodeConverterContext.with(
+                this.converterContext,
+                this.marshallContext,
+                unmarshallContext
+            );
     }
 
     // ConverterContextDelegator........................................................................................
