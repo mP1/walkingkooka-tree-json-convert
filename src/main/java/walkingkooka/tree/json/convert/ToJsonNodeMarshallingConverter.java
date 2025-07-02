@@ -47,7 +47,10 @@ final class ToJsonNodeMarshallingConverter<C extends JsonNodeConverterContext> i
     public boolean canConvert(final Object value,
                               final Class<?> type,
                               final C context) {
-        return null == value || context.isSupportedJsonType(value.getClass());
+        return JsonNode.isClass(type) &&
+            (null == value ||
+                context.isSupportedJsonType(value.getClass())
+            );
     }
 
     @Override

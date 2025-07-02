@@ -36,6 +36,14 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
     ToStringTesting<ToJsonNodeMarshallingConverter<JsonNodeConverterContext>> {
 
     @Test
+    public void testConvertToStringFails() {
+        this.convertFails(
+            "{}",
+            String.class
+        );
+    }
+
+    @Test
     public void testConvertToJsonNode() {
         final JsonNodeConverterContext context = this.createContext();
         final ToJsonNodeMarshallingConverter converter = this.createConverter();
@@ -61,7 +69,7 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
         this.convertAndCheck(
             JsonNodeConverters.toJsonNode()
                 .to(
-                    String.class,
+                    JsonNode.class, // required by ToJsonNodeMarshallingConverter
                     Converters.objectToString()
                 ),
             number,
