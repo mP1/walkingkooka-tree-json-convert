@@ -109,6 +109,7 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         0, // dateOffset
+                        ',', // valueSeparator
                         Converters.fake(),
                         DateTimeContexts.basic(
                             DateTimeSymbols.fromDateFormatSymbols(
