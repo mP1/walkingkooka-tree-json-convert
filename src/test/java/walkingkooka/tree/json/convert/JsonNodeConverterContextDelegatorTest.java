@@ -107,6 +107,7 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                 ExpressionNumberConverterContexts.basic(
                     Converters.fake(),
                     ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
                         0, // dateOffset
                         Converters.fake(),
                         DateTimeContexts.basic(

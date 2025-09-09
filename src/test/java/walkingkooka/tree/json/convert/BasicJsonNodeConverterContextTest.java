@@ -55,6 +55,7 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
             )
         ),
         ConverterContexts.basic(
+            false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET,
             Converters.fake(),
             DateTimeContexts.basic(
