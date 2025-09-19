@@ -20,10 +20,11 @@ package walkingkooka.tree.json.convert;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.TextToTryingShortCircuitingConverter;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * A {@link Converter} that supports unmarshalling text with json to a requested {@link Class}.
+ * A {@link Converter} that supports unmarshalling text holding json to a requested {@link Class}.
  */
 final class TextToObjectConverter<C extends JsonNodeConverterContext> implements TextToTryingShortCircuitingConverter<C> {
 
@@ -47,7 +48,15 @@ final class TextToObjectConverter<C extends JsonNodeConverterContext> implements
     public boolean isTargetType(final Object value,
                                 final Class<?> type,
                                 final C context) {
-        return context.isSupportedJsonType(type);
+        // list of exceptions to try and avoid StackOverflowError
+        return false == value instanceof JsonNode &&
+            false == (
+                type == Boolean.class ||
+                    ExpressionNumber.isClass(type) ||
+                    Number.class == type ||
+                    type == String.class
+            ) &&
+            context.isSupportedJsonType(type);
     }
 
     /**
