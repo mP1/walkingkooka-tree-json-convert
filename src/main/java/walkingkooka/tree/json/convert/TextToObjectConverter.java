@@ -24,7 +24,7 @@ import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
 
 /**
- * A {@link Converter} that supports converting {@link String} to {@link Class} by querying the {@link walkingkooka.tree.json.marshall.JsonNodeContext}.
+ * A {@link Converter} that supports unmarshalling text with json to a requested {@link Class}.
  */
 final class TextToObjectConverter<C extends JsonNodeConverterContext> implements TextToTryingShortCircuitingConverter<C> {
 
@@ -48,7 +48,7 @@ final class TextToObjectConverter<C extends JsonNodeConverterContext> implements
     public boolean isTargetType(final Object value,
                                 final Class<?> type,
                                 final C context) {
-        return Class.class == type;
+        return context.isSupportedJsonType(type);
     }
 
     /**
@@ -58,9 +58,12 @@ final class TextToObjectConverter<C extends JsonNodeConverterContext> implements
     public Object parseText(final String text,
                             final Class<?> type,
                             final C context) {
-        return context.registeredType(
-            JsonNode.string(text)
-        ).orElseThrow(() -> new IllegalArgumentException("Unknown " + type.getName()));
+        return null == text ?
+            null :
+            context.unmarshall(
+            JsonNode.parse(text),
+            type
+        );
     }
 
     @Override
