@@ -26,21 +26,21 @@ import walkingkooka.tree.json.JsonString;
 /**
  * A {@link Converter} that supports converting {@link String} to {@link Class} by querying the {@link walkingkooka.tree.json.marshall.JsonNodeContext}.
  */
-final class TextToClassConverter<C extends JsonNodeConverterContext> implements TextToTryingShortCircuitingConverter<C> {
+final class TextToObjectConverter<C extends JsonNodeConverterContext> implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.
      */
-    static <C extends JsonNodeConverterContext> TextToClassConverter<C> instance() {
+    static <C extends JsonNodeConverterContext> TextToObjectConverter<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static TextToClassConverter<?> INSTANCE = new TextToClassConverter<>();
+    private final static TextToObjectConverter<?> INSTANCE = new TextToObjectConverter<>();
 
-    private TextToClassConverter() {
+    private TextToObjectConverter() {
         super();
     }
 

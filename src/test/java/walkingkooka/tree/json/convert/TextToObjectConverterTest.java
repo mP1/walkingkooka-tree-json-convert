@@ -31,8 +31,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Optional;
 
-public final class TextToClassConverterTest implements ConverterTesting2<TextToClassConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
-    ToStringTesting<TextToClassConverter<FakeJsonNodeConverterContext>> {
+public final class TextToObjectConverterTest implements ConverterTesting2<TextToObjectConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
+    ToStringTesting<TextToObjectConverter<FakeJsonNodeConverterContext>> {
 
     @Test
     public void testConvertStringToClassWithUnknownClassFails() {
@@ -92,8 +92,8 @@ public final class TextToClassConverterTest implements ConverterTesting2<TextToC
     }
 
     @Override
-    public TextToClassConverter<FakeJsonNodeConverterContext> createConverter() {
-        return TextToClassConverter.instance();
+    public TextToObjectConverter<FakeJsonNodeConverterContext> createConverter() {
+        return TextToObjectConverter.instance();
     }
 
     @Override
@@ -135,15 +135,15 @@ public final class TextToClassConverterTest implements ConverterTesting2<TextToC
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            TextToClassConverter.instance(),
-            TextToClassConverter.class.getSimpleName()
+            TextToObjectConverter.instance(),
+            TextToObjectConverter.class.getSimpleName()
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<TextToClassConverter<FakeJsonNodeConverterContext>> type() {
-        return Cast.to(TextToClassConverter.class);
+    public Class<TextToObjectConverter<FakeJsonNodeConverterContext>> type() {
+        return Cast.to(TextToObjectConverter.class);
     }
 }

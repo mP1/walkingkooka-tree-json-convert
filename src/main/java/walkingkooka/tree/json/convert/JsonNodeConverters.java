@@ -33,10 +33,10 @@ public final class JsonNodeConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see TextToClassConverter}
+     * {@see TextToObjectConverter}
      */
-    public static <C extends JsonNodeConverterContext> Converter<C> textToClass() {
-        return TextToClassConverter.instance();
+    public static <C extends JsonNodeConverterContext> Converter<C> textToObject() {
+        return TextToObjectConverter.instance();
     }
 
     /**
