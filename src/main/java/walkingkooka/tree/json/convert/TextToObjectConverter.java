@@ -61,9 +61,9 @@ final class TextToObjectConverter<C extends JsonNodeConverterContext> implements
         return null == text ?
             null :
             context.unmarshall(
-            JsonNode.parse(text),
-            type
-        );
+                JsonNode.parse(text),
+                type
+            );
     }
 
     @Override
