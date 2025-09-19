@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.TextToTryingShortCircuitingConverter;
 import walkingkooka.tree.json.JsonNode;
-import walkingkooka.tree.json.JsonString;
 
 /**
  * A {@link Converter} that supports unmarshalling text with json to a requested {@link Class}.
@@ -52,7 +51,7 @@ final class TextToObjectConverter<C extends JsonNodeConverterContext> implements
     }
 
     /**
-     * Queries {@link walkingkooka.tree.json.marshall.JsonNodeContext#registeredType(JsonString)}.
+     * Unmarshalls the json text.
      */
     @Override
     public Object parseText(final String text,
