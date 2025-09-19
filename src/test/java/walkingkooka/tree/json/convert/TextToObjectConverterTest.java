@@ -24,9 +24,11 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
@@ -46,43 +48,90 @@ public final class TextToObjectConverterTest implements ConverterTesting2<TextTo
     }
 
     @Test
-    public void testConvertNullToString() {
-        this.convertAndCheck(
+    public void testConvertNullToBooleanFails() {
+        this.convertFails(
             null,
-            String.class,
-            (String) null
+            Boolean.class
         );
     }
 
     @Test
-    public void testConvertJsonNullToString() {
-        this.convertAndCheck(
+    public void testConvertJsonNullToBooleanFails() {
+        this.convertFails(
+            JsonNode.nullNode()
+                .toBoolean(),
+            Boolean.class
+        );
+    }
+
+    @Test
+    public void testConvertNullToNumberFails() {
+        this.convertFails(
+            null,
+            Number.class
+        );
+    }
+
+    @Test
+    public void testConvertJsonNumberToNumberFails() {
+        this.convertFails(
+            JsonNode.number(123),
+            Number.class
+        );
+    }
+    
+    @Test
+    public void testConvertNullToStringFails() {
+        this.convertFails(
+            null,
+            String.class
+        );
+    }
+
+    @Test
+    public void testConvertJsonNullToStringFails() {
+        this.convertFails(
             JsonNode.nullNode()
                 .toString(),
-            String.class,
-            (String) null
+            String.class
         );
     }
 
     @Test
-    public void testConvertStringToBigDecimalClass() {
-        this.convertAndCheck(
+    public void testConvertStringToBigDecimalClassFails() {
+        this.convertFails(
             JsonNode.string("1")
                 .toString(),
-            BigDecimal.class,
-            BigDecimal.ONE
+            BigDecimal.class
         );
     }
 
     @Test
-    public void testConvertStringToStringClass() {
-        final String string = "Hello123";
+    public void testConvertStringToStringClassFails() {
+        this.convertFails(
+            JsonNode.string("Hello123")
+                .toString(),
+            String.class
+        );
+    }
+
+    @Test
+    public void testConvertJsonStringWithExpressionToString() {
+        final Expression expression = Expression.add(
+            Expression.value(1),
+            Expression.value(23)
+        );
+
+        final FakeJsonNodeConverterContext context = this.createContext();
 
         this.convertAndCheck(
-            JsonNode.string(string)
+            this.createConverter(),
+            JsonNodeMarshallContexts.basic()
+                .marshall(expression)
                 .toString(),
-            String.class,
-            string
+            expression.getClass(),
+            context,
+            Cast.to(expression)
         );
     }
 
