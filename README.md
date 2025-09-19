@@ -11,5 +11,5 @@ A collection of Converters for `walkingkooka.tree.json`
 
 - [JsonNodeTo](https://github.com/mP1/walkingkooka-tree-json-convert/blob/master/src/main/java/walkingkooka/tree/json/convert/JsonNodeToUnmarshallingConverter.java)
 - [textToObject](https://github.com/mP1/walkingkooka-tree-json-convert/blob/master/src/main/java/walkingkooka/tree/json/convert/TextToObjectConverter.java)
-- [stringToJsonNode](https://github.com/mP1/walkingkooka-tree-json-convert/blob/master/src/main/java/walkingkooka/tree/json/convert/StringToJsonNodeConverter.java)
+- [textToJsonNode](https://github.com/mP1/walkingkooka-tree-json-convert/blob/master/src/main/java/walkingkooka/tree/json/convert/TextToJsonNodeConverter.java)
 - [ToJsonNode](https://github.com/mP1/walkingkooka-tree-json-convert/blob/master/src/main/java/walkingkooka/tree/json/convert/ToJsonNodeMarshallingConverter.java)
