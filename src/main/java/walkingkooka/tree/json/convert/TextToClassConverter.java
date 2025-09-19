@@ -38,7 +38,7 @@ final class TextToClassConverter<C extends JsonNodeConverterContext> implements 
     /**
      * Singleton
      */
-    private final static TextToClassConverter INSTANCE = new TextToClassConverter();
+    private final static TextToClassConverter<?> INSTANCE = new TextToClassConverter<>();
 
     private TextToClassConverter() {
         super();
