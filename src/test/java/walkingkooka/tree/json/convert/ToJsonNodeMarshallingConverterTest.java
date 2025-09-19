@@ -46,7 +46,7 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
     @Test
     public void testConvertToJsonNode() {
         final JsonNodeConverterContext context = this.createContext();
-        final ToJsonNodeMarshallingConverter converter = this.createConverter();
+        final ToJsonNodeMarshallingConverter<JsonNodeConverterContext> converter = this.createConverter();
 
         final ExpressionNumber number = context.expressionNumberKind().create(123);
 
@@ -80,7 +80,7 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
     }
 
     @Override
-    public ToJsonNodeMarshallingConverter createConverter() {
+    public ToJsonNodeMarshallingConverter<JsonNodeConverterContext> createConverter() {
         return ToJsonNodeMarshallingConverter.instance();
     }
 

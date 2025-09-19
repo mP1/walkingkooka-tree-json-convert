@@ -37,7 +37,7 @@ final class JsonNodeToUnmarshallingConverter<C extends JsonNodeConverterContext>
     /**
      * Singleton
      */
-    private final static JsonNodeToUnmarshallingConverter INSTANCE = new JsonNodeToUnmarshallingConverter();
+    private final static JsonNodeToUnmarshallingConverter<?> INSTANCE = new JsonNodeToUnmarshallingConverter<>();
 
     private JsonNodeToUnmarshallingConverter() {
         super();

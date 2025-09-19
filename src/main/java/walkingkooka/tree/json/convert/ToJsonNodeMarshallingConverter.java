@@ -37,7 +37,7 @@ final class ToJsonNodeMarshallingConverter<C extends JsonNodeConverterContext> i
     /**
      * Singleton
      */
-    private final static ToJsonNodeMarshallingConverter INSTANCE = new ToJsonNodeMarshallingConverter();
+    private final static ToJsonNodeMarshallingConverter<?> INSTANCE = new ToJsonNodeMarshallingConverter<>();
 
     private ToJsonNodeMarshallingConverter() {
         super();

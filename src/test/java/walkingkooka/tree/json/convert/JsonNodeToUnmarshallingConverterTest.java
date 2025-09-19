@@ -40,7 +40,7 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
     @Test
     public void testConvertJsonNodeTo() {
         final JsonNodeConverterContext context = this.createContext();
-        final JsonNodeToUnmarshallingConverter converter = this.createConverter();
+        final JsonNodeToUnmarshallingConverter<JsonNodeConverterContext> converter = this.createConverter();
 
         final ExpressionNumber number = context.expressionNumberKind().create(123);
 
@@ -56,7 +56,7 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
     @Test
     public void testConvertTextToJsonNodeTo() {
         final JsonNodeConverterContext context = this.createContext();
-        final JsonNodeToUnmarshallingConverter converter = this.createConverter();
+        final JsonNodeToUnmarshallingConverter<JsonNodeConverterContext> converter = this.createConverter();
 
         final ExpressionNumber number = context.expressionNumberKind().create(123);
 
@@ -73,7 +73,7 @@ public final class JsonNodeToUnmarshallingConverterTest implements ConverterTest
     }
 
     @Override
-    public JsonNodeToUnmarshallingConverter createConverter() {
+    public JsonNodeToUnmarshallingConverter<JsonNodeConverterContext> createConverter() {
         return JsonNodeToUnmarshallingConverter.instance();
     }
 
