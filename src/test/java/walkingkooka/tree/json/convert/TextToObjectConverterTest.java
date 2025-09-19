@@ -24,70 +24,65 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonString;
-import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Optional;
 
 public final class TextToObjectConverterTest implements ConverterTesting2<TextToObjectConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
     ToStringTesting<TextToObjectConverter<FakeJsonNodeConverterContext>> {
 
     @Test
-    public void testConvertStringToClassWithUnknownClassFails() {
+    public void testConvertStringToUnsupportedClassFails() {
         this.convertFails(
             "Unknown",
-            Class.class
+            Void.class
         );
     }
 
     @Test
-    public void testConvertStringToClassWithSimpleClassFails() {
-        this.convertFails(
-            BigDecimal.class.getSimpleName(),
-            Class.class
-        );
-    }
-
-    @Test
-    public void testConvertStringToClassBigDecimal() {
-        this.convertStringAndCheck(
-            BigDecimal.class.getName(),
-            BigDecimal.class
-        );
-    }
-
-    @Test
-    public void testConvertStringToClassBigInteger() {
-        this.convertStringAndCheck(
-            BigInteger.class.getName(),
-            BigInteger.class
-        );
-    }
-
-    @Test
-    public void testConvertStringToClassInteger() {
-        this.convertStringAndCheck(
-            Integer.class.getName(),
-            Integer.class
-        );
-    }
-
-    @Test
-    public void testConvertStringToClassLong() {
-        this.convertStringAndCheck(
-            Long.class.getName(),
-            Long.class
-        );
-    }
-
-    private void convertStringAndCheck(final String className,
-                                       final Class<?> expected) {
+    public void testConvertNullToString() {
         this.convertAndCheck(
-            className,
-            Class.class,
-            expected
+            null,
+            String.class,
+            (String) null
+        );
+    }
+
+    @Test
+    public void testConvertJsonNullToString() {
+        this.convertAndCheck(
+            JsonNode.nullNode()
+                .toString(),
+            String.class,
+            (String) null
+        );
+    }
+
+    @Test
+    public void testConvertStringToBigDecimalClass() {
+        this.convertAndCheck(
+            JsonNode.string("1")
+                .toString(),
+            BigDecimal.class,
+            BigDecimal.ONE
+        );
+    }
+
+    @Test
+    public void testConvertStringToStringClass() {
+        final String string = "Hello123";
+
+        this.convertAndCheck(
+            JsonNode.string(string)
+                .toString(),
+            String.class,
+            string
         );
     }
 
@@ -123,10 +118,20 @@ public final class TextToObjectConverterTest implements ConverterTesting2<TextTo
             private final Converter<FakeJsonNodeConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
 
             @Override
-            public Optional<Class<?>> registeredType(final JsonString string) {
-                return JsonNodeMarshallContexts.basic()
-                    .registeredType(string);
+            public <T> T unmarshall(final JsonNode json,
+                                    final Class<T> type) {
+                return this.context.unmarshall(json, type);
             }
+
+            @Override
+            public Optional<JsonString> typeName(final Class<?> type) {
+                return this.context.typeName(type);
+            }
+
+            private final JsonNodeUnmarshallContext context = JsonNodeUnmarshallContexts.basic(
+                ExpressionNumberKind.BIG_DECIMAL,
+                MathContext.DECIMAL32
+            );
         };
     }
 
