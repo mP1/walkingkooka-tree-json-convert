@@ -23,6 +23,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextDelegator;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
@@ -51,6 +52,19 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
                                           final JsonNodeMarshallUnmarshallContext marshallUnmarshallContext) {
         this.converterContext = converterContext;
         this.marshallUnmarshallContext = marshallUnmarshallContext;
+    }
+
+    @Override
+    public JsonNodeConverterContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor) {
+        final JsonNodeMarshallUnmarshallContext before = this.marshallUnmarshallContext;
+        final JsonNodeMarshallUnmarshallContext after = before.setObjectPostProcessor(processor);
+
+        return before.equals(after) ?
+            this :
+            BasicJsonNodeConverterContext.with(
+                this.converterContext,
+                after
+            );
     }
 
     @Override
