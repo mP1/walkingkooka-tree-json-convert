@@ -19,6 +19,7 @@ package walkingkooka.tree.json.convert;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
+import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcessor;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
@@ -27,6 +28,9 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
  */
 public interface JsonNodeConverterContext extends ExpressionNumberConverterContext,
     JsonNodeMarshallUnmarshallContext {
+
+    @Override
+    JsonNodeConverterContext setObjectPostProcessor(final JsonNodeMarshallContextObjectPostProcessor processor);
 
     @Override
     JsonNodeConverterContext setPreProcessor(final JsonNodeUnmarshallContextPreProcessor processor);
