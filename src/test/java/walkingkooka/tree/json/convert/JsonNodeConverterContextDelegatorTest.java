@@ -83,6 +83,11 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
     }
 
     @Override
+    public int decimalNumberDigitCount() {
+        return DECIMAL_NUMBER_CONTEXT.decimalNumberDigitCount();
+    }
+
+    @Override
     public DecimalNumberContext decimalNumberContext() {
         return DECIMAL_NUMBER_CONTEXT;
     }

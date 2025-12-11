@@ -119,6 +119,11 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     }
 
     @Override
+    public int decimalNumberDigitCount() {
+        return CONVERTER_CONTEXT.decimalNumberDigitCount();
+    }
+
+    @Override
     public DecimalNumberContext decimalNumberContext() {
         return CONVERTER_CONTEXT;
     }
