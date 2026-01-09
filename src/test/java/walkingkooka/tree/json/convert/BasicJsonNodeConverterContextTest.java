@@ -26,6 +26,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
@@ -57,6 +58,7 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
         ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET,
+            LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
             DateTimeContexts.basic(
