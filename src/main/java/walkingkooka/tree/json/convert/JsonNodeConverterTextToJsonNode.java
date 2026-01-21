@@ -20,27 +20,28 @@ package walkingkooka.tree.json.convert;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.TextToTryingShortCircuitingConverter;
-import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.json.JsonNode;
 
 /**
- * A {@link Converter} that supports unmarshalling text holding json to a requested {@link Class}.
+ * A {@link Converter} that supports converting a {@link String} to one of the {@link JsonNode} sub-classes, using {@link JsonNode#parse(String)}.
+ * If parsing fails an {@link IllegalArgumentException} will be thrown.
  */
-final class TextToObjectConverter<C extends JsonNodeConverterContext> implements TextToTryingShortCircuitingConverter<C> {
+final class JsonNodeConverterTextToJsonNode<C extends JsonNodeConverterContext> extends JsonNodeConverter<C>
+    implements TextToTryingShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.
      */
-    static <C extends JsonNodeConverterContext> TextToObjectConverter<C> instance() {
+    static <C extends JsonNodeConverterContext> JsonNodeConverterTextToJsonNode<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static TextToObjectConverter<?> INSTANCE = new TextToObjectConverter<>();
+    private final static JsonNodeConverterTextToJsonNode<?> INSTANCE = new JsonNodeConverterTextToJsonNode<>();
 
-    private TextToObjectConverter() {
+    private JsonNodeConverterTextToJsonNode() {
         super();
     }
 
@@ -48,29 +49,16 @@ final class TextToObjectConverter<C extends JsonNodeConverterContext> implements
     public boolean isTargetType(final Object value,
                                 final Class<?> type,
                                 final C context) {
-        // list of exceptions to try and avoid StackOverflowError
-        return false == value instanceof JsonNode &&
-            false == (
-                type == Boolean.class ||
-                    ExpressionNumber.isClass(type) ||
-                    Number.class == type ||
-                    type == String.class
-            ) &&
-            context.isSupportedJsonType(type);
+        return JsonNode.isClass(type);
     }
 
-    /**
-     * Unmarshalls the json text.
-     */
     @Override
-    public Object parseText(final String text,
+    public Object parseText(final String json,
                             final Class<?> type,
                             final C context) {
-        return null == text ?
-            null :
-            context.unmarshall(
-                JsonNode.parse(text),
-                type
+        return JsonNode.parse(json)
+            .cast(
+                Cast.to(type)
             );
     }
 

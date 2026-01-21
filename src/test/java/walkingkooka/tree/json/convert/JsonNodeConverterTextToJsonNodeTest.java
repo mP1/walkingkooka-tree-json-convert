@@ -20,15 +20,12 @@ package walkingkooka.tree.json.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
-import walkingkooka.ToStringTesting;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.json.JsonNode;
 import walkingkooka.tree.json.JsonPropertyName;
 
-public final class TextToJsonNodeConverterTest implements ConverterTesting2<TextToJsonNodeConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
-    ToStringTesting<TextToJsonNodeConverter<FakeJsonNodeConverterContext>> {
+public final class JsonNodeConverterTextToJsonNodeTest extends JsonNodeConverterTestCase<JsonNodeConverterTextToJsonNode<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext> {
 
     @Test
     public void testConvertStringToJsonNodeWithBadJsonFails() {
@@ -113,8 +110,8 @@ public final class TextToJsonNodeConverterTest implements ConverterTesting2<Text
     }
 
     @Override
-    public TextToJsonNodeConverter<FakeJsonNodeConverterContext> createConverter() {
-        return TextToJsonNodeConverter.instance();
+    public JsonNodeConverterTextToJsonNode<FakeJsonNodeConverterContext> createConverter() {
+        return JsonNodeConverterTextToJsonNode.instance();
     }
 
     @Override
@@ -149,15 +146,15 @@ public final class TextToJsonNodeConverterTest implements ConverterTesting2<Text
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            TextToJsonNodeConverter.instance(),
-            TextToJsonNodeConverter.class.getSimpleName()
+            JsonNodeConverterTextToJsonNode.instance(),
+            JsonNodeConverterTextToJsonNode.class.getSimpleName()
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<TextToJsonNodeConverter<FakeJsonNodeConverterContext>> type() {
-        return Cast.to(TextToJsonNodeConverter.class);
+    public Class<JsonNodeConverterTextToJsonNode<FakeJsonNodeConverterContext>> type() {
+        return Cast.to(JsonNodeConverterTextToJsonNode.class);
     }
 }

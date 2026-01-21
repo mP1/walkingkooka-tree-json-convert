@@ -20,9 +20,7 @@ package walkingkooka.tree.json.convert;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
-import walkingkooka.ToStringTesting;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -36,8 +34,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Optional;
 
-public final class TextToObjectConverterTest implements ConverterTesting2<TextToObjectConverter<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext>,
-    ToStringTesting<TextToObjectConverter<FakeJsonNodeConverterContext>> {
+public final class JsonNodeConverterTextToObjectTest extends JsonNodeConverterTestCase<JsonNodeConverterTextToObject<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext> {
 
     @Test
     public void testConvertStringToUnsupportedClassFails() {
@@ -136,8 +133,8 @@ public final class TextToObjectConverterTest implements ConverterTesting2<TextTo
     }
 
     @Override
-    public TextToObjectConverter<FakeJsonNodeConverterContext> createConverter() {
-        return TextToObjectConverter.instance();
+    public JsonNodeConverterTextToObject<FakeJsonNodeConverterContext> createConverter() {
+        return JsonNodeConverterTextToObject.instance();
     }
 
     @Override
@@ -189,15 +186,15 @@ public final class TextToObjectConverterTest implements ConverterTesting2<TextTo
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            TextToObjectConverter.instance(),
-            TextToObjectConverter.class.getSimpleName()
+            JsonNodeConverterTextToObject.instance(),
+            JsonNodeConverterTextToObject.class.getSimpleName()
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<TextToObjectConverter<FakeJsonNodeConverterContext>> type() {
-        return Cast.to(TextToObjectConverter.class);
+    public Class<JsonNodeConverterTextToObject<FakeJsonNodeConverterContext>> type() {
+        return Cast.to(JsonNodeConverterTextToObject.class);
     }
 }
