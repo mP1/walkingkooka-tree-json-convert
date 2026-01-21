@@ -26,31 +26,31 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class JsonNodeConverters implements PublicStaticHelper {
 
     /**
-     * {@see JsonNodeToUnmarshallingConverter}
+     * {@see JsonNodeConverterJsonNodeTo}
      */
     public static <C extends JsonNodeConverterContext> Converter<C> jsonNodeTo() {
-        return JsonNodeToUnmarshallingConverter.instance();
+        return JsonNodeConverterJsonNodeTo.instance();
     }
 
     /**
-     * {@see TextToObjectConverter}
+     * {@see JsonNodeConverterTextToObject}
      */
     public static <C extends JsonNodeConverterContext> Converter<C> textToObject() {
-        return TextToObjectConverter.instance();
+        return JsonNodeConverterTextToObject.instance();
     }
 
     /**
-     * {@see TextToJsonNodeConverter}
+     * {@see JsonNodeConverterTextToJsonNode}
      */
     public static <C extends JsonNodeConverterContext> Converter<C> textToJsonNode() {
-        return TextToJsonNodeConverter.instance();
+        return JsonNodeConverterTextToJsonNode.instance();
     }
 
     /**
-     * {@see ToJsonNodeMarshallingConverter}
+     * {@see JsonNodeConverterToJsonNode}
      */
     public static <C extends JsonNodeConverterContext> Converter<C> toJsonNode() {
-        return ToJsonNodeMarshallingConverter.instance();
+        return JsonNodeConverterToJsonNode.instance();
     }
 
     /**

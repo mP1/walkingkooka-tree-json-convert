@@ -19,8 +19,8 @@ package walkingkooka.tree.json.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.ToStringTesting;
-import walkingkooka.convert.ConverterTesting2;
+import walkingkooka.Either;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -32,56 +32,46 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
 
-public final class ToJsonNodeMarshallingConverterTest implements ConverterTesting2<ToJsonNodeMarshallingConverter<JsonNodeConverterContext>, JsonNodeConverterContext>,
-    ToStringTesting<ToJsonNodeMarshallingConverter<JsonNodeConverterContext>> {
+public final class JsonNodeConverterJsonNodeToTest extends JsonNodeConverterTestCase<JsonNodeConverterJsonNodeTo<JsonNodeConverterContext>, JsonNodeConverterContext> {
 
     @Test
-    public void testConvertToStringFails() {
-        this.convertFails(
-            "{}",
-            String.class
-        );
-    }
-
-    @Test
-    public void testConvertToJsonNode() {
+    public void testConvertJsonNodeTo() {
         final JsonNodeConverterContext context = this.createContext();
-        final ToJsonNodeMarshallingConverter<JsonNodeConverterContext> converter = this.createConverter();
+        final JsonNodeConverterJsonNodeTo<JsonNodeConverterContext> converter = this.createConverter();
 
         final ExpressionNumber number = context.expressionNumberKind().create(123);
 
         this.convertAndCheck(
             converter,
-            number,
-            JsonNode.class,
+            context.marshall(number),
+            ExpressionNumber.class,
             context,
-            context.marshall(number)
+            number
         );
     }
 
     @Test
-    public void testConvertStringToJsonNodeTo() {
+    public void testConvertTextToJsonNodeTo() {
         final JsonNodeConverterContext context = this.createContext();
+        final JsonNodeConverterJsonNodeTo<JsonNodeConverterContext> converter = this.createConverter();
 
-        final ExpressionNumber number = context.expressionNumberKind()
-            .create(123);
+        final ExpressionNumber number = context.expressionNumberKind().create(123);
 
         this.convertAndCheck(
-            JsonNodeConverters.toJsonNode()
-                .to(
-                    JsonNode.class, // required by ToJsonNodeMarshallingConverter
-                    Converters.objectToString()
-                ),
-            number,
-            String.class,
+            JsonNodeConverters.textToJsonNode().to(
+                JsonNode.class,
+                converter
+            ),
+            context.marshall(number).toString(),
+            ExpressionNumber.class,
             context,
-            context.marshall(number).toString()
+            number
         );
     }
 
     @Override
-    public ToJsonNodeMarshallingConverter<JsonNodeConverterContext> createConverter() {
-        return ToJsonNodeMarshallingConverter.instance();
+    public JsonNodeConverterJsonNodeTo<JsonNodeConverterContext> createConverter() {
+        return JsonNodeConverterJsonNodeTo.instance();
     }
 
     @Override
@@ -95,6 +85,28 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
                 public ExpressionNumberKind expressionNumberKind() {
                     return kind;
                 }
+
+                @Override
+                public boolean canConvert(final Object value,
+                                          final Class<?> type) {
+                    return this.converter.canConvert(
+                        value,
+                        type,
+                        this
+                    );
+                }
+
+                @Override
+                public <T> Either<T, String> convert(final Object value,
+                                                     final Class<T> type) {
+                    return this.converter.convert(
+                        value,
+                        type,
+                        this
+                    );
+                }
+
+                private final Converter<FakeExpressionNumberConverterContext> converter = Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString();
             },
             JsonNodeMarshallUnmarshallContexts.basic(
                 JsonNodeMarshallContexts.basic(),
@@ -112,14 +124,14 @@ public final class ToJsonNodeMarshallingConverterTest implements ConverterTestin
     public void testToString() {
         this.toStringAndCheck(
             this.createConverter(),
-            "* to JsonNode"
+            "JsonNode to type"
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<ToJsonNodeMarshallingConverter<JsonNodeConverterContext>> type() {
-        return Cast.to(ToJsonNodeMarshallingConverter.class);
+    public Class<JsonNodeConverterJsonNodeTo<JsonNodeConverterContext>> type() {
+        return Cast.to(JsonNodeConverterJsonNodeTo.class);
     }
 }

@@ -25,21 +25,21 @@ import walkingkooka.tree.json.JsonNode;
 /**
  * A {@link Converter} that supports unmarshalling a given {@link JsonNode} to the target type using {@link JsonNodeConverterContext#unmarshallWithType(JsonNode)}.
  */
-final class JsonNodeToUnmarshallingConverter<C extends JsonNodeConverterContext> implements Converter<C> {
+final class JsonNodeConverterJsonNodeTo<C extends JsonNodeConverterContext> extends JsonNodeConverter<C> {
 
     /**
      * Type safe getter.
      */
-    static <C extends JsonNodeConverterContext> JsonNodeToUnmarshallingConverter<C> instance() {
+    static <C extends JsonNodeConverterContext> JsonNodeConverterJsonNodeTo<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static JsonNodeToUnmarshallingConverter<?> INSTANCE = new JsonNodeToUnmarshallingConverter<>();
+    private final static JsonNodeConverterJsonNodeTo<?> INSTANCE = new JsonNodeConverterJsonNodeTo<>();
 
-    private JsonNodeToUnmarshallingConverter() {
+    private JsonNodeConverterJsonNodeTo() {
         super();
     }
 
