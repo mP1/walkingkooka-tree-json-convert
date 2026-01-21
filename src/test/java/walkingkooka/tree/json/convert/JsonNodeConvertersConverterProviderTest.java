@@ -66,6 +66,16 @@ public final class JsonNodeConvertersConverterProviderTest implements ConverterP
         );
     }
 
+    @Test
+    public void testConverterNameWithToJsonText() {
+        this.converterAndCheck(
+            JsonNodeConvertersConverterProvider.TO_JSON_TEXT,
+            Lists.empty(),
+            CONTEXT,
+            JsonNodeConverters.toJsonText()
+        );
+    }
+
     @Override
     public JsonNodeConvertersConverterProvider createConverterProvider() {
         return JsonNodeConvertersConverterProvider.INSTANCE;
