@@ -23,6 +23,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.json.JsonNode;
@@ -31,15 +32,79 @@ import walkingkooka.tree.json.JsonString;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeMarshallContexts;
 
+import java.text.DateFormatSymbols;
+import java.util.Locale;
 import java.util.Optional;
 
 public final class JsonNodeConverterToJsonNodeTextTest extends JsonNodeConverterTestCase<JsonNodeConverterToJsonNodeText<FakeJsonNodeConverterContext>, FakeJsonNodeConverterContext> {
 
     @Test
-    public void testConvertToJsonNodeFails() {
+    public void testConvertStringToJsonNodeFails() {
         this.convertFails(
             "{}",
             JsonNode.class
+        );
+    }
+
+    @Test
+    public void testConvertDateTimeSymbolsToCharSequence() {
+        this.convertAndCheck(
+            DateTimeSymbols.fromDateFormatSymbols(
+                new DateFormatSymbols(Locale.ENGLISH)
+            ),
+            CharSequence.class,
+            "{\n" +
+                "  \"ampms\": [\n" +
+                "    \"AM\",\n" +
+                "    \"PM\"\n" +
+                "  ],\n" +
+                "  \"monthNames\": [\n" +
+                "    \"January\",\n" +
+                "    \"February\",\n" +
+                "    \"March\",\n" +
+                "    \"April\",\n" +
+                "    \"May\",\n" +
+                "    \"June\",\n" +
+                "    \"July\",\n" +
+                "    \"August\",\n" +
+                "    \"September\",\n" +
+                "    \"October\",\n" +
+                "    \"November\",\n" +
+                "    \"December\"\n" +
+                "  ],\n" +
+                "  \"monthNameAbbreviations\": [\n" +
+                "    \"Jan\",\n" +
+                "    \"Feb\",\n" +
+                "    \"Mar\",\n" +
+                "    \"Apr\",\n" +
+                "    \"May\",\n" +
+                "    \"Jun\",\n" +
+                "    \"Jul\",\n" +
+                "    \"Aug\",\n" +
+                "    \"Sep\",\n" +
+                "    \"Oct\",\n" +
+                "    \"Nov\",\n" +
+                "    \"Dec\"\n" +
+                "  ],\n" +
+                "  \"weekDayNames\": [\n" +
+                "    \"Sunday\",\n" +
+                "    \"Monday\",\n" +
+                "    \"Tuesday\",\n" +
+                "    \"Wednesday\",\n" +
+                "    \"Thursday\",\n" +
+                "    \"Friday\",\n" +
+                "    \"Saturday\"\n" +
+                "  ],\n" +
+                "  \"weekDayNameAbbreviations\": [\n" +
+                "    \"Sun\",\n" +
+                "    \"Mon\",\n" +
+                "    \"Tue\",\n" +
+                "    \"Wed\",\n" +
+                "    \"Thu\",\n" +
+                "    \"Fri\",\n" +
+                "    \"Sat\"\n" +
+                "  ]\n" +
+                "}"
         );
     }
 
