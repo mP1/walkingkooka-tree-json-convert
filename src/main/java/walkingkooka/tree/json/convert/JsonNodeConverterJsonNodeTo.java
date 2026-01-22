@@ -20,12 +20,14 @@ package walkingkooka.tree.json.convert;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.tree.json.JsonNode;
 
 /**
  * A {@link Converter} that supports unmarshalling a given {@link JsonNode} to the target type using {@link JsonNodeConverterContext#unmarshallWithType(JsonNode)}.
  */
-final class JsonNodeConverterJsonNodeTo<C extends JsonNodeConverterContext> extends JsonNodeConverter<C> {
+final class JsonNodeConverterJsonNodeTo<C extends JsonNodeConverterContext> extends JsonNodeConverter<C>
+    implements ShortCircuitingConverter<C> {
 
     /**
      * Type safe getter.
@@ -47,29 +49,21 @@ final class JsonNodeConverterJsonNodeTo<C extends JsonNodeConverterContext> exte
     public boolean canConvert(final Object value,
                               final Class<?> type,
                               final C context) {
-        return value instanceof JsonNode && context.isSupportedJsonType(type);
+        return value instanceof JsonNode &&
+            context.isSupportedJsonType(type);
     }
 
     @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> type,
-                                         final C context) {
-        return this.canConvert(
-            value,
-            type,
-            context
-        ) ?
-            this.successfulConversion(
-                context.unmarshall(
-                    (JsonNode) value,
-                    type
-                ),
+    public <T> Either<T, String> doConvert(final Object value,
+                                           final Class<T> type,
+                                           final C context) {
+        return this.successfulConversion(
+            context.unmarshall(
+                (JsonNode) value,
                 type
-            ) :
-            this.failConversion(
-                value,
-                type
-            );
+            ),
+            type
+        );
     }
 
     @Override
