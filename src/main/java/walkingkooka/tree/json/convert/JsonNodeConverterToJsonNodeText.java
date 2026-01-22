@@ -49,28 +49,26 @@ final class JsonNodeConverterToJsonNodeText<C extends JsonNodeConverterContext> 
     public boolean canConvert(final Object value,
                               final Class<?> type,
                               final C context) {
-        return (String.class == type || CharSequence.class == type) &&
+        return null != value &&
+            context.isSupportedJsonType(value.getClass()) &&
+            (String.class == type || CharSequence.class == type) &&
             context.canConvert(
-                value,
-                JsonNode.class
-            ) && context.canConvert(
-            JsonNode.object(),
-            String.class
-        );
+                "",
+                type
+            );
     }
 
     @Override
     public <T> Either<T, String> doConvert(final Object value,
                                            final Class<T> type,
                                            final C context) {
-        return context.convert(
-            value,
-            JsonNode.class
-        ).mapLeft(
-            j -> context.convertOrFail(
-                j.toString(),
+        return this.successfulConversion(
+            context.convertOrFail(
+                context.marshall(value)
+                    .toString(),
                 type
-            )
+            ),
+            type
         );
     }
 
