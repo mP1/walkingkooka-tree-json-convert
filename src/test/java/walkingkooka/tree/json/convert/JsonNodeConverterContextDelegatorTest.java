@@ -24,6 +24,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
@@ -133,6 +134,7 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
                         0, // dateOffset
+                        Indentation.SPACES2,
                         LineEnding.NL,
                         ',', // valueSeparator
                         Converters.fake(),
