@@ -96,6 +96,9 @@ public final class JsonNodeConverterToJsonNodeTest extends JsonNodeConverterTest
             JsonNodeMarshallUnmarshallContexts.basic(
                 JsonNodeMarshallContexts.basic(),
                 JsonNodeUnmarshallContexts.basic(
+                    (String cc) -> {
+                        throw new UnsupportedOperationException();
+                    },
                     kind,
                     MathContext.DECIMAL32
                 )
