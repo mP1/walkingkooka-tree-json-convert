@@ -175,6 +175,9 @@ public final class JsonNodeConverterTextToObjectTest extends JsonNodeConverterTe
             }
 
             private final JsonNodeUnmarshallContext context = JsonNodeUnmarshallContexts.basic(
+                (String cc) -> {
+                    throw new UnsupportedOperationException();
+                },
                 ExpressionNumberKind.BIG_DECIMAL,
                 MathContext.DECIMAL32
             );

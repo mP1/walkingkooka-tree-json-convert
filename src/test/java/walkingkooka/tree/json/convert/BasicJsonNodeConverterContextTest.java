@@ -82,6 +82,9 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
         JsonNodeMarshallContexts.basic(),
         JsonNodeUnmarshallContexts.basic(
+            (String cc) -> {
+                throw new UnsupportedOperationException();
+            },
             ExpressionNumberKind.DEFAULT,
             CONVERTER_CONTEXT.mathContext()
         )

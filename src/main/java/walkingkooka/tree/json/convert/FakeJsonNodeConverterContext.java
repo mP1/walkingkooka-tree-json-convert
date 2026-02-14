@@ -25,6 +25,7 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallContextObjectPostProcesso
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -152,6 +153,11 @@ public class FakeJsonNodeConverterContext extends FakeExpressionNumberConverterC
 
     @Override
     public Optional<JsonString> typeName(final Class<?> type) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
         throw new UnsupportedOperationException();
     }
 

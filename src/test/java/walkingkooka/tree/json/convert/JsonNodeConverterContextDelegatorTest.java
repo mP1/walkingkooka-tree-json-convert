@@ -154,6 +154,9 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                 JsonNodeMarshallUnmarshallContexts.basic(
                     JsonNodeMarshallContexts.basic(),
                     JsonNodeUnmarshallContexts.basic(
+                        (String cc) -> {
+                            throw new UnsupportedOperationException();
+                        },
                         numberKind,
                         MATH_CONTEXT
                     )
