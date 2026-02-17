@@ -42,7 +42,9 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -61,6 +63,9 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
                 )
             ),
             ConverterContexts.basic(
+                (l) -> Optional.of(
+                    Currency.getInstance(l)
+                ), // CanCurrencyForLocale
                 localeContext, // CanDateTimeSymbolsForLocale
                 localeContext, // CanDecimalNumberSymbolsForLocale
                 false, // canNumbersHaveGroupSeparator
