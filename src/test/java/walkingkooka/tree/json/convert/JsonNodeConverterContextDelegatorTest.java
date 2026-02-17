@@ -132,6 +132,18 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                 ExpressionNumberConverterContexts.basic(
                     Converters.fake(),
                     ConverterContexts.basic(
+                        (l) -> {
+                            Objects.requireNonNull(l, "locale");
+                            throw new UnsupportedOperationException();
+                        }, // canCurrencyForLocale
+                        (l) -> {
+                            Objects.requireNonNull(l, "locale");
+                            throw new UnsupportedOperationException();
+                        }, // canDateTimeSymbolsForLocale
+                        (l) -> {
+                            Objects.requireNonNull(l, "locale");
+                            throw new UnsupportedOperationException();
+                        }, // canDecimalNumberSymbolsForLocale
                         false, // canNumbersHaveGroupSeparator
                         0, // dateOffset
                         Indentation.SPACES2,

@@ -21,8 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
@@ -39,10 +41,11 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -50,34 +53,48 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
     ToStringTesting<BasicJsonNodeConverterContext>,
     DecimalNumberContextDelegator {
 
-    private final static ExpressionNumberConverterContext CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
-        ExpressionNumberConverters.toNumberOrExpressionNumber(
-            Converters.stringToNumber(
-                (dnc) -> (DecimalFormat) DecimalFormat.getInstance()
-            )
-        ),
-        ConverterContexts.basic(
-            false, // canNumbersHaveGroupSeparator
-            Converters.JAVA_EPOCH_OFFSET,
-            Indentation.SPACES2,
-            LineEnding.NL,
-            ',', // valueSeparator
-            Converters.fake(),
-            DateTimeContexts.basic(
-                DateTimeSymbols.fromDateFormatSymbols(
-                    new DateFormatSymbols(
-                        Locale.forLanguageTag("EN-AU")
-                    )
-                ),
-                Locale.forLanguageTag("EN-AU"),
-                1950,
-                50,
-                LocalDateTime::now
+    static {
+        final Locale locale = Locale.forLanguageTag("EN-AU");
+        final LocaleContext localeContext = LocaleContexts.jre(locale);
+
+        CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
+            ExpressionNumberConverters.toNumberOrExpressionNumber(
+                Converters.stringToNumber(
+                    (dnc) -> (DecimalFormat) DecimalFormat.getInstance()
+                )
             ),
-            DecimalNumberContexts.american(MathContext.DECIMAL32)
-        ),
-        ExpressionNumberKind.DEFAULT
-    );
+            ConverterContexts.basic(
+                new FakeCurrencyContext() {
+                    @Override
+                    public Optional<Currency> currencyForLocale(final Locale locale) {
+                        return Optional.of(
+                            Currency.getInstance(locale)
+                        );
+                    }
+                },
+                localeContext, // CanDateTimeSymbolsForLocale
+                localeContext, // CanDecimalNumberSymbolsForLocale
+                false, // canNumbersHaveGroupSeparator
+                Converters.JAVA_EPOCH_OFFSET,
+                Indentation.SPACES2,
+                LineEnding.NL,
+                ',', // valueSeparator
+                Converters.fake(),
+                DateTimeContexts.basic(
+                    localeContext.dateTimeSymbolsForLocale(locale)
+                        .get(),
+                    locale,
+                    1950,
+                    50,
+                    LocalDateTime::now
+                ),
+                DecimalNumberContexts.american(MathContext.DECIMAL32)
+            ),
+            ExpressionNumberKind.DEFAULT
+        );
+    }
+
+    private final static ExpressionNumberConverterContext CONVERTER_CONTEXT;
 
     private final static JsonNodeMarshallUnmarshallContext MARSHALL_UNMARSHALL_CONTEXT = JsonNodeMarshallUnmarshallContexts.basic(
         JsonNodeMarshallContexts.basic(),
