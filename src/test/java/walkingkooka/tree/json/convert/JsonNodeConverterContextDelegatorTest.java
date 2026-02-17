@@ -144,6 +144,10 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                             Objects.requireNonNull(l, "locale");
                             throw new UnsupportedOperationException();
                         }, // canDecimalNumberSymbolsForLocale
+                        (lt) -> {
+                            Objects.requireNonNull(lt, "languageTag");
+                            throw new UnsupportedOperationException();
+                        }, // canLocaleForLanguageTag
                         false, // canNumbersHaveGroupSeparator
                         0, // dateOffset
                         Indentation.SPACES2,

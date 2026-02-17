@@ -68,6 +68,7 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
                 ), // CanCurrencyForLocale
                 localeContext, // CanDateTimeSymbolsForLocale
                 localeContext, // CanDecimalNumberSymbolsForLocale
+                localeContext, // CanLocaleForLanguageTag
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET,
                 Indentation.SPACES2,
