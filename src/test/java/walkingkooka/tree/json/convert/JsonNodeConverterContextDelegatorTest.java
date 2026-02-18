@@ -163,6 +163,9 @@ public final class JsonNodeConverterContextDelegatorTest implements JsonNodeConv
                         (String cc) -> {
                             throw new UnsupportedOperationException();
                         },
+                        (String lt) -> {
+                            throw new UnsupportedOperationException();
+                        },
                         numberKind,
                         MATH_CONTEXT
                     )

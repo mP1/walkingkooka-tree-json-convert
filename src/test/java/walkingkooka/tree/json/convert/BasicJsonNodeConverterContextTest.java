@@ -95,6 +95,9 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
             (String cc) -> {
                 throw new UnsupportedOperationException();
             },
+            (String lt) -> {
+                throw new UnsupportedOperationException();
+            },
             ExpressionNumberKind.DEFAULT,
             CONVERTER_CONTEXT.mathContext()
         )
