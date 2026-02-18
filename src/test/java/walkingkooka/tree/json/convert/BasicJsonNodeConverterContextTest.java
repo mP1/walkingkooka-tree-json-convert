@@ -66,9 +66,6 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
                 (l) -> Optional.of(
                     Currency.getInstance(l)
                 ), // CanCurrencyForLocale
-                localeContext, // CanDateTimeSymbolsForLocale
-                localeContext, // CanDecimalNumberSymbolsForLocale
-                localeContext, // CanLocaleForLanguageTag
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET,
                 Indentation.SPACES2,
@@ -83,7 +80,8 @@ public final class BasicJsonNodeConverterContextTest implements JsonNodeConverte
                     50,
                     LocalDateTime::now
                 ),
-                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                DecimalNumberContexts.american(MathContext.DECIMAL32),
+                localeContext
             ),
             ExpressionNumberKind.DEFAULT
         );
