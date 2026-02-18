@@ -178,6 +178,9 @@ public final class JsonNodeConverterTextToObjectTest extends JsonNodeConverterTe
                 (String cc) -> {
                     throw new UnsupportedOperationException();
                 },
+                (String lt) -> {
+                    throw new UnsupportedOperationException();
+                },
                 ExpressionNumberKind.BIG_DECIMAL,
                 MathContext.DECIMAL32
             );

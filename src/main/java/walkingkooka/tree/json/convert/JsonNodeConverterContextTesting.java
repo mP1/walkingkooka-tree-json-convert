@@ -23,6 +23,11 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContextTesting;
 public interface JsonNodeConverterContextTesting<C extends JsonNodeConverterContext> extends ExpressionNumberConverterContextTesting<C>,
     JsonNodeMarshallUnmarshallContextTesting<C> {
 
+    @Override
+    default C createCanLocaleForLanguageTag() {
+        return this.createContext();
+    }
+
     // necessary because the 3 Testing interface have different default impls
     @Override
     default String typeNameSuffix() {

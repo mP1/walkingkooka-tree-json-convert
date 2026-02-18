@@ -99,6 +99,9 @@ public final class JsonNodeConverterToJsonNodeTest extends JsonNodeConverterTest
                     (String cc) -> {
                         throw new UnsupportedOperationException();
                     },
+                    (String lt) -> {
+                        throw new UnsupportedOperationException();
+                    },
                     kind,
                     MathContext.DECIMAL32
                 )

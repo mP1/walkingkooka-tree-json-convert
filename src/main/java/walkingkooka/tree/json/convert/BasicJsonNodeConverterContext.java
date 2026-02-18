@@ -30,7 +30,9 @@ import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContext;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContextPreProcessor;
 
 import java.math.MathContext;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A {@link JsonNodeConverterContext} that uses given {@link ExpressionNumberConverterContext}, {@link JsonNodeMarshallContext}
@@ -103,6 +105,11 @@ final class BasicJsonNodeConverterContext implements JsonNodeConverterContext,
     @Override
     public DecimalNumberContext decimalNumberContext() {
         return this.converterContext;
+    }
+
+    @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.converterContext.localeForLanguageTag(languageTag);
     }
 
     private final ExpressionNumberConverterContext converterContext;

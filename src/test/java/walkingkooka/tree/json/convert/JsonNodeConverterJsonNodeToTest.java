@@ -31,6 +31,8 @@ import walkingkooka.tree.json.marshall.JsonNodeMarshallUnmarshallContexts;
 import walkingkooka.tree.json.marshall.JsonNodeUnmarshallContexts;
 
 import java.math.MathContext;
+import java.util.Locale;
+import java.util.Optional;
 
 public final class JsonNodeConverterJsonNodeToTest extends JsonNodeConverterTestCase<JsonNodeConverterJsonNodeTo<JsonNodeConverterContext>, JsonNodeConverterContext> {
 
@@ -114,6 +116,9 @@ public final class JsonNodeConverterJsonNodeToTest extends JsonNodeConverterTest
                     (String cc) -> {
                         throw new UnsupportedOperationException();
                     },
+                    (String languageTag) -> Optional.of(
+                        Locale.forLanguageTag(languageTag)
+                    ),
                     kind,
                     MathContext.DECIMAL32
                 )
